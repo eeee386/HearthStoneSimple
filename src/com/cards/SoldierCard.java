@@ -1,5 +1,7 @@
 package com.cards;
 
+import com.effect.SoldierEffect;
+
 import java.util.ArrayList;
 
 public abstract class SoldierCard extends Card {
@@ -7,7 +9,7 @@ public abstract class SoldierCard extends Card {
     private int health;
     private int attack;
     private int maxHealth;
-    //private ArrayList<SoldierEffect> effect;
+    private ArrayList<SoldierEffect> effects = new ArrayList<>();
 
     public SoldierCard(int manaCost, String name, String type, int attack, int maxHealth) {
         super(manaCost, name, type);

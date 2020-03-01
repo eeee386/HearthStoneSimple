@@ -1,10 +1,13 @@
 package com.heroes;
 
+import com.effect.HeroEffect;
 import com.game.GameHandler;
+
+import java.util.ArrayList;
 
 public abstract class Hero {
     private int lifePoints = 30;
-
+    private ArrayList<HeroEffect> effects = new ArrayList<>();
 
     public boolean isDead() {
         return lifePoints <= 0;
