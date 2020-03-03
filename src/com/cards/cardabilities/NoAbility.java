@@ -7,4 +7,9 @@ public class NoAbility extends CardAbility {
     public void useAbility(GameHandler gm) {
 
     }
+
+    @Override
+    public String getDiscription() {
+        return null;
+    }
 }
