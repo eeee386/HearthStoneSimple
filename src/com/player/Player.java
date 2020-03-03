@@ -14,6 +14,7 @@ public class Player {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
     private ArrayList<SoldierCard> cardsOnField = new ArrayList<>();
     private ArrayList<Card> cardsInDeck = new ArrayList<>();
+    private ArrayList<SoldierCard> playedCards = new ArrayList<>();
     private Hero hero;
 
     public Player(Hero hero){
@@ -55,7 +56,7 @@ public class Player {
         cardsInHand.add(cardsInDeck.get(0));
     }
 
-    public void useCard(GameHandler gm, int index){
+    public void playCard(GameHandler gm, int index){
         Card cardInUse = cardsInHand.get(index);
         if(cardInUse instanceof SoldierCard) {
             Scanner scanner = new Scanner(System.in);
@@ -63,6 +64,7 @@ public class Player {
 
             int indexOnField = Integer.parseInt(scanner.nextLine());
             cardsOnField.add(indexOnField, (SoldierCard) cardInUse);
+            playedCards.add((SoldierCard) cardInUse);
             cardInUse.useAbility(gm);
         } else {
             cardInUse.useAbility(gm);
@@ -80,6 +82,7 @@ public class Player {
 
     public void endTurn() {
         setOnTurn(false);
+        playedCards.clear();
     }
 
     private void incrementMaxMana() {

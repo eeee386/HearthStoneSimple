@@ -1,16 +1,21 @@
 package com.cards;
 
+import com.cards.cardabilities.CardAbility;
 import com.game.GameHandler;
+
+import java.util.ArrayList;
 
 public abstract class Card {
     private int manaCost;
     private String name;
-    private String type;
+    private CardTypes type;
+    private ArrayList<CardAbility> cardAbility;
 
-    public Card(int manaCost, String name, String type) {
+    public Card(int manaCost, String name, CardTypes type, ArrayList<CardAbility> cardAbility) {
         this.manaCost = manaCost;
         this.name = name;
         this.type = type;
+        this.cardAbility = cardAbility;
     }
 
     public int getManaCost() {
@@ -21,9 +26,11 @@ public abstract class Card {
         return this.name;
     }
 
-    public String getType() {
+    public CardTypes getType() {
         return type;
     }
 
-    public abstract void useAbility(GameHandler gm);
+    public void useAbility(GameHandler gm) {
+        cardAbility.forEach(ca -> ca.useAbility(gm));
+    }
 }

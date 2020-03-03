@@ -74,9 +74,8 @@ public class GameHandler {
         enemyPlayer = temp;
     }
 
-    public void shouldEndGame() {
-        playerOne.isGameOver();
-        playerTwo.isGameOver();
+    public boolean shouldEndGame() {
+        return playerOne.isGameOver() || playerTwo.isGameOver();
     }
 
     private HeroTypes heroChooseHandler(HeroTypes ans) {
