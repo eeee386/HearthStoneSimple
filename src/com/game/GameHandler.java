@@ -5,7 +5,7 @@ import com.player.Player;
 
 import java.util.Scanner;
 
-import static com.heroes.HeroTypes.*;
+import static com.heroes.HeroTypes.valueOf;
 
 public class GameHandler {
     private Player playerOne;
@@ -52,14 +52,14 @@ public class GameHandler {
     public void startNewGame() {
         Scanner scanner = new Scanner(System.in);
         HeroTypes ans = null;
-        ans = heroChooseHandler(ans);
+        ans = heroChooseHandler(ans, 1);
 
         playerOne = playerFactory(ans);
         activePlayer = playerOne;
         activePlayer.startGameAsFirstPlayer();
         ans = null;
 
-        ans = heroChooseHandler(ans);
+        ans = heroChooseHandler(ans, 2);
         playerTwo = playerFactory(ans);
         enemyPlayer = playerTwo;
         enemyPlayer.startGameAsSecondPlayer();
@@ -78,10 +78,10 @@ public class GameHandler {
         return playerOne.isGameOver() || playerTwo.isGameOver();
     }
 
-    private HeroTypes heroChooseHandler(HeroTypes ans) {
+    private HeroTypes heroChooseHandler(HeroTypes ans, int oneOrTwo) {
         Scanner scanner = new Scanner(System.in);
         while (ans == null){
-            System.out.println("Player One which hero do you want to be? (Cleric, Mage, Paladin, Warlock, Hunter): ");
+            System.out.println("Player " + oneOrTwo + " which hero do you want to be? (Cleric, Mage, Paladin, Warlock, Hunter): ");
             String answer = scanner.nextLine();
             ans = valueOf(answer);
             System.out.println("Please choose: Cleric, Mage, Paladin, Warlock, Hunter");

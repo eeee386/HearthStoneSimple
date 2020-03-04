@@ -1,5 +1,6 @@
 package com.player;
 
+import com.cards.BattleCrySoldierCard;
 import com.cards.Card;
 import com.cards.SoldierCard;
 import com.game.GameHandler;
@@ -53,12 +54,24 @@ public class Player {
     }
 
     public void drawCard(){
-        cardsInHand.add(cardsInDeck.get(0));
+        cardsInHand.add(cardsInDeck.remove(0));
+    }
+
+    public void drawCard(int numberOfCards) {
+        cardsInHand.addAll(cardsInDeck.subList(0, numberOfCards));
+        cardsInDeck.subList(0, numberOfCards).clear();
     }
 
     public void playCard(GameHandler gm, int index){
         Card cardInUse = cardsInHand.get(index);
         if(cardInUse instanceof SoldierCard) {
+            if(cardsOnField.size() == 5){
+                System.out.println("You cannot put down more card on the field.");
+                return;
+            }
+            if(cardInUse instanceof BattleCrySoldierCard) {
+                cardInUse.useAbility(gm);
+            }
             Scanner scanner = new Scanner(System.in);
             System.out.println("Where to: ");
 
@@ -69,6 +82,7 @@ public class Player {
         } else {
             cardInUse.useAbility(gm);
         }
+        useMana(cardInUse.getManaCost());
     }
 
     public void useHeroAbility(GameHandler gm){
@@ -78,6 +92,7 @@ public class Player {
     public void startTurn(){
         incrementMaxMana();
         setOnTurn(true);
+        cardsOnField.forEach(e -> e.setActive(true));
     }
 
     public void endTurn() {
@@ -108,5 +123,9 @@ public class Player {
 
     public void startGameAsSecondPlayer() {
         this.cardsInHand = new ArrayList<>(this.cardsInDeck.subList(0, 4));
+    }
+
+    public ArrayList<SoldierCard> getPlayedCards() {
+        return playedCards;
     }
 }

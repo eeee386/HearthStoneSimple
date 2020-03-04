@@ -8,11 +8,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public abstract class CardAbility {
-    public abstract void useAbility(GameHandler gm);
-    public abstract String getDiscription();
+public class SendBackSoldierAbility extends CardAbility {
 
-    public SoldierCard getCardFromTheField(GameHandler gm, String message) {
+    @Override
+    public void useAbility(GameHandler gm) {
+        sendBackCardFromFieldToHand(gm, "Which character's do you want to send back?");
+    }
+
+    @Override
+    public String getDiscription() {
+        return "Send back soldier to its owner";
+    }
+
+    public void sendBackCardFromFieldToHand(GameHandler gm, String message) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(message + "(Player and placement on the board)");
 
@@ -21,9 +29,7 @@ public abstract class CardAbility {
         Player player = answerArray.get(0).compareTo("Player1") == 0 ? gm.getPlayerOne() : gm.getPlayerTwo();
         int cardIndex = Integer.parseInt(answerArray.get(1));
         scanner.close();
-        return player.getCardsOnField().get(cardIndex);
+        SoldierCard card = player.getCardsOnField().remove(cardIndex);
+        player.getCardsInHand().add(card);
     }
-
-
-
 }

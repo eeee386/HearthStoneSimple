@@ -1,17 +1,21 @@
-package com.cards;
+package com.cards.cardabilities;
 
 import com.game.GameHandler;
 
-public class ManaFillCard extends SpellCard {
+public class ManaFillAbility extends CardAbility {
     private int manaFillValue;
 
-    public ManaFillCard(int manaCost, String name, int manaFillValue) {
-        super(manaCost, name, "ManaFill");
+    public ManaFillAbility(int manaFillValue) {
         this.manaFillValue = manaFillValue;
     }
 
     @Override
     public void useAbility(GameHandler gm) {
         gm.getActivePlayer().addMana(manaFillValue);
+    }
+
+    @Override
+    public String getDiscription() {
+        return null;
     }
 }

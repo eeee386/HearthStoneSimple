@@ -17,15 +17,7 @@ public class ChangeHealthAbility extends CardAbility {
 
     @Override
     public void useAbility(GameHandler gm) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Which character's health do you want to increase? (Player and placement on the board)");
-
-        String answer = scanner.nextLine();
-        ArrayList<String> answerArray = new ArrayList<String>(Arrays.asList(answer.split(" ")));
-        Player player = answerArray.get(0).compareTo("Player1") == 0 ? gm.getPlayerOne() : gm.getPlayerTwo();
-        int cardIndex = Integer.parseInt(answerArray.get(1));
-        player.getCardsOnField().get(cardIndex).addEffect(new ChangeHealthEffect(healthValue));
-        scanner.close();
+        getCardFromTheField(gm, "Which character's health do you want to increase?").addEffect(new ChangeHealthEffect(healthValue));
     }
 
     @Override

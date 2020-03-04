@@ -14,12 +14,28 @@ public abstract class SoldierCard extends Card {
     private int attack;
     private int maxHealth;
     private ArrayList<SoldierEffect> effects = new ArrayList<>();
+    private boolean isActive;
+    private SoldierTypes type;
 
-    public SoldierCard(int manaCost, String name, CardTypes type, ArrayList<CardAbility> cardAbility, int health, int attack, int maxHealth) {
-        super(manaCost, name, type, cardAbility);
-        this.health = health;
+    public SoldierCard(int manaCost, String name, SoldierTypes type, ArrayList<CardAbility> cardAbility, int attack, int maxHealth) {
+        super(manaCost, name, cardAbility);
+        this.health = maxHealth;
         this.attack = attack;
         this.maxHealth = maxHealth;
+        this.isActive = false;
+        this.type = type;
+    }
+
+    public CardTypes getType() {
+        return type;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public int getHealth() {
@@ -73,15 +89,23 @@ public abstract class SoldierCard extends Card {
         return effects;
     }
 
+    public void setEffects(ArrayList<SoldierEffect> effects) {
+        this.effects = effects;
+    }
+
     public void attack(SoldierCard card) {
         if(effects.stream().anyMatch(e -> e instanceof FreezeEffect)){
+            System.out.println("This soldier is freezed!");
             return;
+        }
+        if(!isActive) {
+            System.out.println("This soldier is already spent!");
         }
         card.hit(getActualAttack());
         this.hit(card.attack);
     }
 
     public String toString() {
-        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType();
+        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType() + getFullDescription();
     }
 }

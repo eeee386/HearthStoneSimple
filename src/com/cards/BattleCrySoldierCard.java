@@ -1,14 +1,11 @@
 package com.cards;
 
-import com.game.GameHandler;
+import com.cards.cardabilities.CardAbility;
+
+import java.util.ArrayList;
 
 public class BattleCrySoldierCard extends SoldierCard {
-    public BattleCrySoldierCard(int manaCost, String name, int attack, int maxHealth) {
-        super(manaCost, name, SoldierTypes.BATTLECRY, attack, maxHealth);
-    }
-
-    @Override
-    public void useAbility(GameHandler gm) {
-
+    public BattleCrySoldierCard(int manaCost, String name, ArrayList<CardAbility> cardAbility, int attack, int maxHealth) {
+        super(manaCost, name, SoldierTypes.BATTLECRY, cardAbility, attack, maxHealth);
     }
 }

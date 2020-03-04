@@ -1,12 +1,16 @@
 package com.cards;
 
-public abstract class SpellCard extends Card {
+import com.cards.cardabilities.CardAbility;
 
-    public SpellCard(int manaCost, String name, String type) {
-        super(manaCost, name, type);
+import java.util.ArrayList;
+
+public class SpellCard extends Card {
+
+    public SpellCard(int manaCost, String name, ArrayList<CardAbility> cardAbility) {
+        super(manaCost, name, cardAbility);
     }
 
     public String toString() {
-        return getName() + " " + getManaCost() + " " + getType();
+        return getName() + " " + getManaCost() + " " + getFullDescription();
     }
 }
