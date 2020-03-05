@@ -27,5 +27,7 @@ public abstract class Hero {
 
     public abstract void useAbility(GameHandler gm);
 
-
+    public ArrayList<HeroEffect> getEffects() {
+        return effects;
+    }
 }

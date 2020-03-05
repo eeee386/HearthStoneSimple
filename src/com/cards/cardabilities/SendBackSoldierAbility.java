@@ -30,6 +30,7 @@ public class SendBackSoldierAbility extends CardAbility {
         int cardIndex = Integer.parseInt(answerArray.get(1));
         scanner.close();
         SoldierCard card = player.getCardsOnField().remove(cardIndex);
+        card.setEffects(new ArrayList<>());
         player.getCardsInHand().add(card);
     }
 }

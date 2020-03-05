@@ -6,10 +6,24 @@ public abstract class Effect {
 
     public Effect(boolean isIndefinite, int howManyTurnsIsItStillActive) {
         this.isIndefinite = isIndefinite;
-        this.howManyTurnsIsItStillActive = howManyTurnsIsItStillActive;
+        this.howManyTurnsIsItStillActive = 2 * howManyTurnsIsItStillActive;
     }
 
     public boolean isActive() {
         return isIndefinite || howManyTurnsIsItStillActive > 0;
+    }
+
+    public boolean isIndefinite() {
+        return isIndefinite;
+    }
+
+    public void effectActivityDecrement(){
+        if(isActive() && !isIndefinite()) {
+            howManyTurnsIsItStillActive--;
+        }
+    }
+
+    public int getHowManyTurnsIsItStillActive() {
+        return howManyTurnsIsItStillActive;
     }
 }

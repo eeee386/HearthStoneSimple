@@ -26,6 +26,15 @@ public abstract class SoldierCard extends Card {
         this.type = type;
     }
 
+    public SoldierCard(int manaCost, String name, SoldierTypes type, ArrayList<CardAbility> cardAbility, int attack, int maxHealth, ArrayList<SoldierEffect> effects) {
+        super(manaCost, name, cardAbility);
+        this.health = maxHealth;
+        this.attack = attack;
+        this.maxHealth = maxHealth;
+        this.effects = effects;
+        this.type = type;
+    }
+
     public CardTypes getType() {
         return type;
     }
@@ -106,6 +115,6 @@ public abstract class SoldierCard extends Card {
     }
 
     public String toString() {
-        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType() + getFullDescription();
+        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType() + getFullDescription() + effects.stream().map(e-> e.toString() + "\n");
     }
 }

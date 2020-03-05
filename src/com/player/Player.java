@@ -3,6 +3,8 @@ package com.player;
 import com.cards.BattleCrySoldierCard;
 import com.cards.Card;
 import com.cards.SoldierCard;
+import com.effect.Effect;
+import com.effect.HeroEffect;
 import com.game.GameHandler;
 import com.heroes.Hero;
 
@@ -92,12 +94,22 @@ public class Player {
     public void startTurn(){
         incrementMaxMana();
         setOnTurn(true);
-        cardsOnField.forEach(e -> e.setActive(true));
+        decrementEffectTurn();
+
     }
 
     public void endTurn() {
         setOnTurn(false);
         playedCards.clear();
+        decrementEffectTurn();
+    }
+
+    public void decrementEffectTurn() {
+        cardsOnField.forEach(card -> {
+            card.setActive(true);
+            card.getEffects().forEach(Effect::effectActivityDecrement);
+        });
+        hero.getEffects().forEach(Effect::effectActivityDecrement);
     }
 
     private void incrementMaxMana() {

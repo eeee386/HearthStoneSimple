@@ -6,4 +6,9 @@ public class ChangeAttackEffect extends SoldierEffect {
         super(true, 0);
         this.changeAttack = changeAttack;
     }
+
+    @Override
+    public String toString() {
+        return "Attack value is changed by " + changeAttack;
+    }
 }
