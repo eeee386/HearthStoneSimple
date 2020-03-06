@@ -12,6 +12,7 @@ import com.heroes.Hero;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Player {
     private boolean isOnTurn;
@@ -134,13 +135,18 @@ public class Player {
         incrementMaxMana();
         setOnTurn(true);
         decrementEffectTurn();
-
+        filterDeadSoldiers();
     }
 
     public void endTurn() {
         setOnTurn(false);
         playedCards.clear();
         decrementEffectTurn();
+        filterDeadSoldiers();
+    }
+
+    public void filterDeadSoldiers(){
+        cardsOnField = (ArrayList<SoldierCard>) cardsOnField.stream().filter(SoldierCard::isDead).collect(Collectors.toList());
     }
 
     public void decrementEffectTurn() {

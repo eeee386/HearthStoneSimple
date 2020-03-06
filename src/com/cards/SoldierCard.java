@@ -114,6 +114,10 @@ public abstract class SoldierCard extends Card {
         this.hit(card.attack);
     }
 
+    public boolean isDead() {
+        return getActualHealth() <= 0;
+    }
+
     public String getActiveDescription() {
         return isActive ? "Active Soldier" : "Inactive Soldier";
     }

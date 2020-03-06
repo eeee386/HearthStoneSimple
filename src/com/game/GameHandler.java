@@ -45,7 +45,6 @@ public class GameHandler {
     }
 
     public void startNewGame() {
-        Scanner scanner = new Scanner(System.in);
         HeroTypes ans = null;
         ans = heroChooseHandler(ans, 1);
 
