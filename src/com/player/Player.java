@@ -2,6 +2,7 @@ package com.player;
 
 import com.cards.BattleCrySoldierCard;
 import com.cards.Card;
+import com.cards.CardFactory;
 import com.cards.SoldierCard;
 import com.effect.Effect;
 import com.effect.HeroEffect;
@@ -19,9 +20,19 @@ public class Player {
     private ArrayList<Card> cardsInDeck = new ArrayList<>();
     private ArrayList<SoldierCard> playedCards = new ArrayList<>();
     private Hero hero;
+    private String name;
 
-    public Player(Hero hero){
+    public Player(String name, Hero hero){
         this.hero = hero;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     private int maxMana = 0;
@@ -64,8 +75,36 @@ public class Player {
         cardsInDeck.subList(0, numberOfCards).clear();
     }
 
+    public void playerChooseCard(GameHandler gm) {
+        if(!canPlayCard()){
+            System.out.println("You don't have enough mana to play any card");
+            return;
+        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose a card from your hand (index of card)");
+        int index = scanner.nextInt();
+        scanner.close();
+        playCard(gm, index);
+    }
+
+    public boolean canPlayCard() {
+        return cardsInHand.size() > 0 && cardsInHand.stream().anyMatch(c -> c.getManaCost() <= actualMana);
+    }
+
+    public boolean canAttack() {
+        return cardsOnField.stream().anyMatch(SoldierCard::isActive);
+    }
+
+    public boolean canPlay() {
+        return canPlayCard() || canAttack();
+    }
+
     public void playCard(GameHandler gm, int index){
         Card cardInUse = cardsInHand.get(index);
+        if(cardInUse.getManaCost() > actualMana){
+            System.out.println("You don't have enough mana to play this card");
+            return;
+        }
         if(cardInUse instanceof SoldierCard) {
             if(cardsOnField.size() == 5){
                 System.out.println("You cannot put down more card on the field.");
@@ -139,5 +178,10 @@ public class Player {
 
     public ArrayList<SoldierCard> getPlayedCards() {
         return playedCards;
+    }
+
+    public void prepDeck(){
+        cardsInDeck = CardFactory.getFullDeck();
+        shuffleDeck();
     }
 }

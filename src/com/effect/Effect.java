@@ -26,4 +26,6 @@ public abstract class Effect {
     public int getHowManyTurnsIsItStillActive() {
         return howManyTurnsIsItStillActive;
     }
+
+    public abstract String getDescription();
 }

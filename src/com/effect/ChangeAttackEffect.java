@@ -7,8 +7,7 @@ public class ChangeAttackEffect extends SoldierEffect {
         this.changeAttack = changeAttack;
     }
 
-    @Override
-    public String toString() {
+    public String getDescription() {
         return "Attack value is changed by " + changeAttack;
     }
 }

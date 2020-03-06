@@ -13,11 +13,6 @@ public class GameHandler {
     private Player activePlayer;
     private Player enemyPlayer;
 
-    public GameHandler(Player playerOne, Player playerTwo) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-    }
-
     public Player getPlayerOne() {
         return playerOne;
     }
@@ -38,13 +33,13 @@ public class GameHandler {
         this.activePlayer.useHeroAbility(this);
     }
 
-    private Player playerFactory(HeroTypes answer) {
+    private Player playerFactory(HeroTypes answer, String name) {
         switch(answer) {
-            case CLERIC: return new Player(new Cleric());
-            case MAGE: return new Player(new Mage());
-            case PALADIN: return new Player(new Paladin());
-            case WARLOCK: return new Player(new Warlock());
-            case HUNTER: return new Player(new Hunter());
+            case CLERIC: return new Player(name, new Cleric());
+            case MAGE: return new Player(name, new Mage());
+            case PALADIN: return new Player(name, new Paladin());
+            case WARLOCK: return new Player(name, new Warlock());
+            case HUNTER: return new Player(name, new Hunter());
             default: return null;
         }
     }
@@ -54,14 +49,16 @@ public class GameHandler {
         HeroTypes ans = null;
         ans = heroChooseHandler(ans, 1);
 
-        playerOne = playerFactory(ans);
+        playerOne = playerFactory(ans, "Player1");
         activePlayer = playerOne;
+        activePlayer.prepDeck();
         activePlayer.startGameAsFirstPlayer();
         ans = null;
 
         ans = heroChooseHandler(ans, 2);
-        playerTwo = playerFactory(ans);
+        playerTwo = playerFactory(ans, "Player2");
         enemyPlayer = playerTwo;
+        enemyPlayer.prepDeck();
         enemyPlayer.startGameAsSecondPlayer();
 
     }
@@ -72,6 +69,7 @@ public class GameHandler {
         Player temp = activePlayer;
         activePlayer = enemyPlayer;
         enemyPlayer = temp;
+        System.out.println(activePlayer.getName() + "'s turn started\n");
     }
 
     public boolean shouldEndGame() {

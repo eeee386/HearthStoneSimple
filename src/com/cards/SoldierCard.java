@@ -114,7 +114,11 @@ public abstract class SoldierCard extends Card {
         this.hit(card.attack);
     }
 
+    public String getActiveDescription() {
+        return isActive ? "Active Soldier" : "Inactive Soldier";
+    }
+
     public String toString() {
-        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType() + getFullDescription() + effects.stream().map(e-> e.toString() + "\n");
+        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType() + " " + getActiveDescription() + getFullDescription() + " " + effects.stream().map(e-> e.getDescription() + "\n");
     }
 }

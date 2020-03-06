@@ -5,8 +5,7 @@ public class FreezeEffect extends SoldierEffect {
         super(isIndefinite, howManyTurnsIsItStillActive);
     }
 
-    @Override
-    public String toString() {
+    public String getDescription() {
         return "Freezed for " + getHowManyTurnsIsItStillActive();
     }
 }

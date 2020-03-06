@@ -1,9 +1,13 @@
 package com.cards;
 
 import com.cards.cardabilities.*;
+import com.effect.AddPlusAttackForEveryTurnEffect;
+import com.effect.AddPlusHealthForEveryTurnEffect;
+import com.effect.SoldierEffect;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class CardFactory {
     public static ArrayList<Card> cards = new ArrayList<>();
@@ -46,21 +50,33 @@ public class CardFactory {
         cards.add(new TauntSoldierCard(4, "Shieldmaster", 3, 5));
         cards.add(new TauntSoldierCard(6, "Lord of the Arena", 6, 5));
         cards.add(new TauntSoldierCard(8, "Protector", 8, 8));
+        cards.add(new TauntSoldierCard(1, "Footman", 1, 2));
+        cards.add(new TauntSoldierCard(1, "Shieldbearer", 0, 4));
 
         cards.add(new ChargeSoldierCard(2, "Angry Warrior", 2, 1));
-        cards.add(new ChargeSoldierCard(6, "Reckless Warrior", 2, 1));
+        cards.add(new ChargeSoldierCard(6, "Reckless Warrior", 5, 3));
+        cards.add(new ChargeSoldierCard(1, "Boar", 1, 1));
+        cards.add(new ChargeSoldierCard(3, "Rider", 3, 1));
 
         cards.add(new BattleCrySoldierCard(3, "Sun Priest", addPlus1Both, 3, 2));
         cards.add(new BattleCrySoldierCard(5, "Janitor", clearBonuses, 4, 5));
-        cards.add(new BattleCrySoldierCard(5, "Warlord", addItselfplus1byNumberOfSoldiers, 4, 4));
         cards.add(new BattleCrySoldierCard(5, "Warlord", addItselfplus1byNumberOfSoldiers, 4, 4));
         cards.add(new BattleCrySoldierCard(4, "Chest", drawTwoCards, 0, 4));
         cards.add(new BattleCrySoldierCard(7, "Lord Destroyer", dealTwoDamageToAll, 4, 4));
         cards.add(new BattleCrySoldierCard(6, "Horror", killEveryOneAbove3Damage, 3, 4));
 
-        cards.add()
+        cards.add(new SimpleSoldierCard(8, "Ghoul",7, 7, new ArrayList<>(Arrays.asList(new AddPlusHealthForEveryTurnEffect(1), new AddPlusAttackForEveryTurnEffect(1)))));
+        cards.add(new SimpleSoldierCard(2, "Swordsmith", 1, 3, new ArrayList<>(Collections.singletonList(new AddPlusHealthForEveryTurnEffect(1)))));
 
+        cards.add(new SimpleSoldierCard(0, "Wisp", 1, 1));
+        cards.add(new SimpleSoldierCard(1, "Raider", 2, 1));
+        cards.add(new SimpleSoldierCard(1, "Battlemage", 2, 2));
+        cards.add(new SimpleSoldierCard(3, "Rager", 5, 1));
+    }
 
+    public static ArrayList<Card> getFullDeck(){
+        createCards();
+        return cards;
     }
 
     private static ArrayList<CardAbility> abilityListFactory(CardAbility ...abilities){

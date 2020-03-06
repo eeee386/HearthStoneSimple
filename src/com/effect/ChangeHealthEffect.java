@@ -7,8 +7,7 @@ public class ChangeHealthEffect extends SoldierEffect {
         this.changeHealth = changeHealth;
     }
 
-    @Override
-    public String toString() {
+    public String getDescription() {
         return "Health value is changed by " + changeHealth;
     }
 }
