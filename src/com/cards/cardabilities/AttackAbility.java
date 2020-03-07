@@ -1,6 +1,5 @@
 package com.cards.cardabilities;
 
-import com.cards.SoldierCard;
 import com.game.GameHandler;
 import com.player.Player;
 

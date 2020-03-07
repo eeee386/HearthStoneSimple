@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Mage extends Hero {
     private final int hitDamage = 2;
-    @Override
-    public void useAbility(GameHandler gm) {
+
+    public void abilityHandler(GameHandler gm) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Which Card or Hero to hit");
 

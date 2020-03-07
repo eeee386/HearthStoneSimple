@@ -1,10 +1,14 @@
 package com.effect;
 
 public class ChangeAttackEffect extends SoldierEffect {
-    public int changeAttack;
+    private final int changeAttack;
     public ChangeAttackEffect(int changeAttack) {
-        super(true, 0);
+        super(true, 0, false, true);
         this.changeAttack = changeAttack;
+    }
+
+    public int getChangeAttack() {
+        return changeAttack;
     }
 
     public String getDescription() {

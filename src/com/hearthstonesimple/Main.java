@@ -1,44 +1,57 @@
 package com.hearthstonesimple;
 
 import com.cards.SoldierCard;
+import com.game.ActionType;
 import com.game.GameHandler;
+import com.player.Player;
 
 import java.util.Scanner;
+
+import static com.game.ActionType.*;
 
 public class Main {
 
     public static void main(String[] args) {
         GameHandler gm = new GameHandler();
         gm.startNewGame();
+        Scanner scanner = new Scanner(System.in);
         while(!gm.shouldEndGame()) {
-            gm.newTurn();
-            while(gm.getActivePlayer().canPlay()){
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Choose action: (attack or play card or hero action)");
+            Player activePlayer = gm.getActivePlayer();
+            while(activePlayer.canPlay()){
+
+                System.out.println("Choose action: (attack or playcard or heroaction)");
                 String action = scanner.nextLine();
-                switch(action){
-                    case "attack":
+                ActionType actionType = valueOf(action.trim().toUpperCase());
+                switch(actionType){
+                    case ATTACK:
+                        if(!activePlayer.isAnyCardOnField()){
+                            System.out.println("You don't have a soldier to attack with");
+                            continue;
+                        }
                         System.out.println("Please choose the soldier you want to attack with (index): ");
-                        int cardIndex = scanner.nextInt();
-                        SoldierCard card = gm.getActivePlayer().getCardsOnField().get(cardIndex);
-                        System.out.println("Please choose which soldier do you want to attack (index): ");
-                        int enemyCardIndex = scanner.nextInt();
-                        SoldierCard enemyCard = gm.getEnemyPlayer().getCardsOnField().get(enemyCardIndex);
-                        card.attack(enemyCard);
+                        gm.handleAttack();
                         break;
-                    case "play card":
+                    case PLAYCARD:
+                        if(!activePlayer.isAnyCardInHand()){
+                            System.out.println("You don't have a card in your hand");
+                            continue;
+                        }
                         System.out.println("Please choose the card you want to play (index)");
                         int playCardIndex = scanner.nextInt();
-                        gm.getActivePlayer().playCard(gm, playCardIndex);
+                        activePlayer.playCard(gm, playCardIndex);
                         break;
-                    case "hero action":
-                        gm.getActivePlayer().getHero().useAbility(gm);
+                    case HEROACTION:
+                        activePlayer.getHero().useAbility(gm);
                     default:
                         System.out.println("Please choose from the 3 options");
                         break;
                 }
             }
+            gm.newTurn();
         }
+        scanner.close();
+
+        gm.writeOutWinner();
 
 
     }

@@ -1,10 +1,7 @@
 package com.cards;
 
 import com.cards.cardabilities.CardAbility;
-import com.effect.ChangeAttackEffect;
-import com.effect.ChangeHealthEffect;
-import com.effect.FreezeEffect;
-import com.effect.SoldierEffect;
+import com.effect.*;
 
 import java.util.ArrayList;
 
@@ -63,7 +60,7 @@ public abstract class SoldierCard extends Card {
         return effects
                 .stream()
                 .filter(e -> e instanceof ChangeHealthEffect)
-                .map(e -> ((ChangeHealthEffect) e).changeHealth)
+                .map(e -> ((ChangeHealthEffect) e).getChangeHealth())
                 .reduce(0, (acc, health) -> acc + health);
     }
 
@@ -71,7 +68,7 @@ public abstract class SoldierCard extends Card {
         return attack + effects
                 .stream()
                 .filter(e -> e instanceof ChangeAttackEffect)
-                .map(e-> ((ChangeAttackEffect) e).changeAttack)
+                .map(e-> ((ChangeAttackEffect) e).getChangeAttack())
                 .reduce(0, (acc, health) -> acc + health);
     }
 
@@ -119,10 +116,15 @@ public abstract class SoldierCard extends Card {
     }
 
     public String getActiveDescription() {
-        return isActive ? "Active Soldier" : "Inactive Soldier";
+        return isActive ? "Active" : "Inactive";
     }
 
     public String toString() {
-        return getName() + " " + getAttack() + " " + getHealth() + " " + getManaCost() + " " + getType() + " " + getActiveDescription() + getFullDescription() + " " + effects.stream().map(e-> e.getDescription() + "\n");
+        StringBuilder allEffects = new StringBuilder();
+        for (Effect effect :
+                effects) {
+            allEffects.append(effect.getDescription());
+        }
+        return getName() + ", attack: " + getAttack() + ", health: " + getHealth() + ", mana: " + getManaCost() + " " + getType().toString().toLowerCase() + " " + getActiveDescription() + " " + getFullDescription() + " " + allEffects + "\n";
     }
 }

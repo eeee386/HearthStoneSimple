@@ -3,7 +3,6 @@ package com.cards;
 import com.cards.cardabilities.*;
 import com.effect.AddPlusAttackForEveryTurnEffect;
 import com.effect.AddPlusHealthForEveryTurnEffect;
-import com.effect.SoldierEffect;
 
 import java.util.ArrayList;
 import java.util.Arrays;

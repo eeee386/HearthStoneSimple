@@ -1,6 +1,5 @@
 package com.cards;
 
-import com.cards.cardabilities.CardAbility;
 import com.effect.SoldierEffect;
 
 import java.util.ArrayList;

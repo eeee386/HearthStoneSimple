@@ -10,8 +10,7 @@ import java.util.Scanner;
 public class Cleric extends Hero {
     private final int healValue = 2;
 
-    @Override
-    public void useAbility(GameHandler gm) {
+    public void abilityHandler(GameHandler gm) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Which Card or Hero to heal");
 

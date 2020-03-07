@@ -1,7 +1,6 @@
 package com.cards.cardabilities;
 
 import com.cards.SoldierCard;
-import com.cards.SoldierTypes;
 import com.game.GameHandler;
 
 import java.util.Scanner;

@@ -4,11 +4,6 @@ import com.cards.SoldierCard;
 import com.effect.ChangeAttackEffect;
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
-import com.player.Player;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class IncreaseAttackAndHealthByNumberOfSoldiers extends CardAbility {
     @Override

@@ -2,11 +2,6 @@ package com.cards.cardabilities;
 
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
-import com.player.Player;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class ChangeHealthAbility extends CardAbility {
     private int healthValue;

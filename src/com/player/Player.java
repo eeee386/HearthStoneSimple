@@ -5,7 +5,6 @@ import com.cards.Card;
 import com.cards.CardFactory;
 import com.cards.SoldierCard;
 import com.effect.Effect;
-import com.effect.HeroEffect;
 import com.game.GameHandler;
 import com.heroes.Hero;
 
@@ -120,6 +119,12 @@ public class Player {
             int indexOnField = Integer.parseInt(scanner.nextLine());
             cardsOnField.add(indexOnField, (SoldierCard) cardInUse);
             playedCards.add((SoldierCard) cardInUse);
+            ((SoldierCard) cardInUse).getEffects().forEach(e-> {
+                if(e.isStartingEffect()){
+                    e.setActivated(true);
+
+                }
+            });
             cardInUse.useAbility(gm);
         } else {
             cardInUse.useAbility(gm);
@@ -136,6 +141,8 @@ public class Player {
         setOnTurn(true);
         decrementEffectTurn();
         filterDeadSoldiers();
+        drawCard();
+        hero.setCanUseAbility(true);
     }
 
     public void endTurn() {
@@ -189,5 +196,31 @@ public class Player {
     public void prepDeck(){
         cardsInDeck = CardFactory.getFullDeck();
         shuffleDeck();
+    }
+
+    public void writeOutCardsOnField(){
+        System.out.println("Cards on field");
+        StringBuilder cardDescription = new StringBuilder();
+        for (Card card: cardsOnField) {
+            cardDescription.append(card.toString());
+        }
+        System.out.println(cardDescription);
+    }
+
+    public void writeOutCardsInHand() {
+        System.out.println("Cards in hand");
+        StringBuilder cardDescription = new StringBuilder();
+        for (Card card: cardsInHand) {
+            cardDescription.append(card.toString());
+        }
+        System.out.println(cardDescription);
+    }
+
+    public boolean isAnyCardOnField() {
+        return getCardsOnField().size() > 0;
+    }
+
+    public boolean isAnyCardInHand() {
+        return getCardsInHand().size() > 0;
     }
 }

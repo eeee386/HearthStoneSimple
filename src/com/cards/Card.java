@@ -33,6 +33,11 @@ public abstract class Card {
     }
 
     public String getFullDescription() {
-        return cardAbility.stream().map(CardAbility::getDiscription).reduce("", (acc, e) -> acc + ", " + e);
+        StringBuilder description = new StringBuilder();
+        for (CardAbility ability:
+             cardAbility) {
+            description.append(", ").append(ability.getDiscription());
+        }
+        return String.valueOf(description);
     }
 }

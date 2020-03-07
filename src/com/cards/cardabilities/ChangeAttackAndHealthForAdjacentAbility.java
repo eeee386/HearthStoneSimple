@@ -1,6 +1,5 @@
 package com.cards.cardabilities;
 
-import com.cards.SoldierCard;
 import com.effect.ChangeAttackEffect;
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;

@@ -1,5 +1,6 @@
 package com.game;
 
+import com.cards.SoldierCard;
 import com.heroes.*;
 import com.player.Player;
 
@@ -59,7 +60,12 @@ public class GameHandler {
         enemyPlayer = playerTwo;
         enemyPlayer.prepDeck();
         enemyPlayer.startGameAsSecondPlayer();
+        startFirstTurn();
+    }
 
+    public void startFirstTurn(){
+        activePlayer.startTurn();
+        System.out.println(activePlayer.getName() + "'s turn started\n");
     }
 
     public void newTurn() {
@@ -75,15 +81,41 @@ public class GameHandler {
         return playerOne.isGameOver() || playerTwo.isGameOver();
     }
 
+    public void writeOutWinner(){
+        if(shouldEndGame()){
+            String winner = !playerOne.isGameOver() ? playerOne.getName() : playerTwo.getName();
+            System.out.println("The winner is " + winner);
+        }
+    }
+
     private HeroTypes heroChooseHandler(HeroTypes ans, int oneOrTwo) {
         Scanner scanner = new Scanner(System.in);
         while (ans == null){
             System.out.println("Player " + oneOrTwo + " which hero do you want to be? (Cleric, Mage, Paladin, Warlock, Hunter): ");
-            String answer = scanner.nextLine();
-            ans = valueOf(answer);
-            System.out.println("Please choose: Cleric, Mage, Paladin, Warlock, Hunter");
+            String answer = scanner.next();
+            if (answer != null) {
+                ans = valueOf(answer.trim().toUpperCase());
+            }
         }
-        scanner.close();
+//        scanner.close();
         return ans;
+    }
+
+    public void handleAttack() {
+        Scanner scanner = new Scanner(System.in);
+        int cardIndex = scanner.nextInt();
+        SoldierCard card = activePlayer.getCardsOnField().get(cardIndex);
+        System.out.println("Please choose which soldier do you want to attack (index): ");
+        int enemyCardIndex = scanner.nextInt();
+        SoldierCard enemyCard = enemyPlayer.getCardsOnField().get(enemyCardIndex);
+        card.attack(enemyCard);
+        scanner.close();
+    }
+
+    public void writeOutTable() {
+        activePlayer.writeOutCardsInHand();
+        activePlayer.writeOutCardsOnField();
+        System.out.println("Enemy Player");
+        enemyPlayer.writeOutCardsOnField();
     }
 }

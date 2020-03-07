@@ -2,7 +2,7 @@ package com.effect;
 
 public class InvincibleForNextTurnEffect extends HeroEffect {
     public InvincibleForNextTurnEffect() {
-        super(false, 1);
+        super(false, 1, false, true);
     }
 
     public String getDescription() {

@@ -1,6 +1,7 @@
 package com.cards.cardabilities;
 
 import com.cards.SoldierCard;
+import com.effect.Effect;
 import com.game.GameHandler;
 import com.player.Player;
 
@@ -30,7 +31,7 @@ public class SendBackSoldierAbility extends CardAbility {
         int cardIndex = Integer.parseInt(answerArray.get(1));
         scanner.close();
         SoldierCard card = player.getCardsOnField().remove(cardIndex);
-        card.setEffects(new ArrayList<>());
+        card.getEffects().stream().filter(Effect::isStartingEffect).forEach(e-> e.setActivated(false));
         player.getCardsInHand().add(card);
     }
 }

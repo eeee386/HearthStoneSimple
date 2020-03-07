@@ -1,10 +1,15 @@
 package com.effect;
 
 public class ChangeHealthEffect extends SoldierEffect {
-    public int changeHealth;
+    private final int changeHealth;
+
     public ChangeHealthEffect(int changeHealth) {
-        super(true, 0);
+        super(true, 0, false, true);
         this.changeHealth = changeHealth;
+    }
+
+    public int getChangeHealth() {
+        return changeHealth;
     }
 
     public String getDescription() {

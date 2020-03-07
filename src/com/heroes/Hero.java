@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public abstract class Hero {
     private int lifePoints = 30;
     private ArrayList<HeroEffect> effects = new ArrayList<>();
+    private boolean canUseAbility = true;
 
     public boolean isDead() {
         return lifePoints <= 0;
@@ -25,9 +26,22 @@ public abstract class Hero {
         lifePoints = lifePoints + healValue;
     }
 
-    public abstract void useAbility(GameHandler gm);
+    public void useAbility(GameHandler gm){
+        if(canUseAbility) {
+            abilityHandler(gm);
+            canUseAbility = false;
+        } else {
+            System.out.println("You have used up your ability");
+        }
+    }
+
+    public abstract void abilityHandler(GameHandler gm);
 
     public ArrayList<HeroEffect> getEffects() {
         return effects;
+    }
+
+    public void setCanUseAbility(boolean canUseAbility) {
+        this.canUseAbility = canUseAbility;
     }
 }
