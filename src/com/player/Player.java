@@ -115,16 +115,18 @@ public class Player {
             }
             Scanner scanner = new Scanner(System.in);
             int indexOnField = 0;
-            if(cardsInHand.size() > 0) {
-                System.out.println("Where to: ");
-                indexOnField = Integer.parseInt(scanner.nextLine());
+            if(cardsOnField.size() > 0) {
+                do {
+                    System.out.println("Where to: ");
+                    indexOnField = scanner.nextInt();
+                } while(indexOnField > cardsOnField.size());
             }
-            cardsOnField.add(0, (SoldierCard) cardInUse);
+            cardsOnField.add(indexOnField, (SoldierCard) cardInUse);
+            cardsInHand.remove(cardInUse);
             playedCards.add((SoldierCard) cardInUse);
             ((SoldierCard) cardInUse).getEffects().forEach(e-> {
                 if(e.isStartingEffect()){
                     e.setActivated(true);
-
                 }
             });
             cardInUse.useAbility(gm);
@@ -218,11 +220,23 @@ public class Player {
         System.out.println(cardDescription);
     }
 
+    public void writeOutHero() {
+        System.out.println(hero.getDescription());
+    }
+
     public boolean isAnyCardOnField() {
-        return getCardsOnField().size() > 0;
+        return cardsOnField.size() > 0;
     }
 
     public boolean isAnyCardInHand() {
-        return getCardsInHand().size() > 0;
+        return cardsInHand.size() > 0;
+    }
+
+    public int getActualMana() {
+        return actualMana;
+    }
+
+    public void setActualMana(int actualMana) {
+        this.actualMana = actualMana;
     }
 }

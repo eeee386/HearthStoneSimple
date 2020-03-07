@@ -103,19 +103,26 @@ public class GameHandler {
 
     public void handleAttack() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please choose the soldier you want to attack with (index): ");
         int cardIndex = scanner.nextInt();
         SoldierCard card = activePlayer.getCardsOnField().get(cardIndex);
-        System.out.println("Please choose which soldier do you want to attack (index): ");
-        int enemyCardIndex = scanner.nextInt();
-        SoldierCard enemyCard = enemyPlayer.getCardsOnField().get(enemyCardIndex);
+        System.out.println("Please choose which character do you want to attack (index, or hero): ");
+        String answer = scanner.nextLine();
+        if("hero".equals(answer)){
+            card.attack(enemyPlayer.getHero());
+        }
+        SoldierCard enemyCard = enemyPlayer.getCardsOnField().get(Integer.parseInt(answer.trim()));
         card.attack(enemyCard);
         scanner.close();
     }
 
     public void writeOutTable() {
+        activePlayer.writeOutHero();
+        System.out.println("actualMana: " + activePlayer.getActualMana());
         activePlayer.writeOutCardsInHand();
         activePlayer.writeOutCardsOnField();
         System.out.println("Enemy Player");
+        enemyPlayer.writeOutHero();
         enemyPlayer.writeOutCardsOnField();
     }
 }

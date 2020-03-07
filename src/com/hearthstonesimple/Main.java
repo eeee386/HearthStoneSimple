@@ -13,21 +13,27 @@ public class Main {
     public static void main(String[] args) {
         GameHandler gm = new GameHandler();
         gm.startNewGame();
-        Scanner scanner = new Scanner(System.in);
         while(!gm.shouldEndGame()) {
             Player activePlayer = gm.getActivePlayer();
             while(activePlayer.canPlay()){
+                Scanner scanner = new Scanner(System.in);
                 gm.writeOutTable();
                 System.out.println("Choose action: (attack or playcard or heroaction)");
                 String action = scanner.nextLine();
-                ActionType actionType = valueOf(action.trim().toUpperCase());
+                ActionType actionType;
+                try{
+                    actionType = valueOf(action.trim().toUpperCase());
+                } catch (IllegalArgumentException e) {
+                    System.out.println("This is not a valid command");
+                    continue;
+                }
+
                 switch(actionType){
                     case ATTACK:
                         if(!activePlayer.isAnyCardOnField()){
                             System.out.println("You don't have a soldier to attack with");
                             continue;
                         }
-                        System.out.println("Please choose the soldier you want to attack with (index): ");
                         gm.handleAttack();
                         break;
                     case PLAYCARD:
@@ -46,10 +52,9 @@ public class Main {
                         break;
                 }
             }
+            System.out.println("\nnew turn\n");
             gm.newTurn();
         }
-        scanner.close();
-
         gm.writeOutWinner();
     }
 }

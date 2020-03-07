@@ -1,5 +1,6 @@
 package com.heroes;
 
+import com.effect.Effect;
 import com.effect.HeroEffect;
 import com.effect.InvincibleForNextTurnEffect;
 import com.game.GameHandler;
@@ -43,5 +44,13 @@ public abstract class Hero {
 
     public void setCanUseAbility(boolean canUseAbility) {
         this.canUseAbility = canUseAbility;
+    }
+
+    public String getDescription(){
+        StringBuilder effectsDescription = new StringBuilder();
+        for (Effect effect: effects) {
+            effectsDescription.append(effect.getDescription());
+        }
+        return getClass().getName() + " life: " + lifePoints + effectsDescription;
     }
 }

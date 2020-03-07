@@ -11,6 +11,6 @@ public class SpellCard extends Card {
     }
 
     public String toString() {
-        return getName() + "Mana: " + getManaCost() + " " + getFullDescription() + "\n";
+        return getName() + ", mana: " + getManaCost() + " " + getFullDescription() + "\n";
     }
 }

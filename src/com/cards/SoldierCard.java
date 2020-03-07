@@ -2,6 +2,7 @@ package com.cards;
 
 import com.cards.cardabilities.CardAbility;
 import com.effect.*;
+import com.heroes.Hero;
 
 import java.util.ArrayList;
 
@@ -109,6 +110,10 @@ public abstract class SoldierCard extends Card {
         }
         card.hit(getActualAttack());
         this.hit(card.attack);
+    }
+
+    public void attack(Hero hero){
+        hero.hit(attack);
     }
 
     public boolean isDead() {
