@@ -114,10 +114,12 @@ public class Player {
                 cardInUse.useAbility(gm);
             }
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Where to: ");
-
-            int indexOnField = Integer.parseInt(scanner.nextLine());
-            cardsOnField.add(indexOnField, (SoldierCard) cardInUse);
+            int indexOnField = 0;
+            if(cardsInHand.size() > 0) {
+                System.out.println("Where to: ");
+                indexOnField = Integer.parseInt(scanner.nextLine());
+            }
+            cardsOnField.add(0, (SoldierCard) cardInUse);
             playedCards.add((SoldierCard) cardInUse);
             ((SoldierCard) cardInUse).getEffects().forEach(e-> {
                 if(e.isStartingEffect()){

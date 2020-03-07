@@ -1,6 +1,5 @@
 package com.hearthstonesimple;
 
-import com.cards.SoldierCard;
 import com.game.ActionType;
 import com.game.GameHandler;
 import com.player.Player;
@@ -18,7 +17,7 @@ public class Main {
         while(!gm.shouldEndGame()) {
             Player activePlayer = gm.getActivePlayer();
             while(activePlayer.canPlay()){
-
+                gm.writeOutTable();
                 System.out.println("Choose action: (attack or playcard or heroaction)");
                 String action = scanner.nextLine();
                 ActionType actionType = valueOf(action.trim().toUpperCase());
@@ -52,7 +51,5 @@ public class Main {
         scanner.close();
 
         gm.writeOutWinner();
-
-
     }
 }
