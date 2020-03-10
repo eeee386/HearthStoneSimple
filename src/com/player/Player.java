@@ -125,7 +125,6 @@ public class Player {
                     e.setActivated(true);
                 }
             });
-            cardInUse.useAbility(gm);
         } else {
             cardInUse.useAbility(gm);
         }
