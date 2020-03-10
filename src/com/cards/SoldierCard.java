@@ -110,14 +110,16 @@ public abstract class SoldierCard extends Card {
         }
         card.hit(getActualAttack());
         this.hit(card.attack);
+        setActive(false);
     }
 
     public void attack(Hero hero){
         hero.hit(attack);
+        setActive(false);
     }
 
-    public boolean isDead() {
-        return getActualHealth() <= 0;
+    public boolean isAlive() {
+        return getActualHealth() > 0;
     }
 
     public String getActiveDescription() {

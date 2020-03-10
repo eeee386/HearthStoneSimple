@@ -3,11 +3,11 @@ package com.cards.cardabilities;
 import com.effect.ChangeAttackEffect;
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
+import com.game.ScannerUtils;
 import com.player.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class ChangeAttackAndHealthForAdjacentAbility extends CardAbility {
     private int attackValue;
@@ -20,14 +20,12 @@ public class ChangeAttackAndHealthForAdjacentAbility extends CardAbility {
 
     @Override
     public void useAbility(GameHandler gm) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Which soldier do you choose? (Player and placement on the board)");
 
-        String answer = scanner.nextLine();
+        String answer = ScannerUtils.readline();
         ArrayList<String> answerArray = new ArrayList<String>(Arrays.asList(answer.split(" ")));
         Player player = answerArray.get(0).compareTo("Player1") == 0 ? gm.getPlayerOne() : gm.getPlayerTwo();
         int cardIndex = Integer.parseInt(answerArray.get(1));
-        scanner.close();
         if(cardIndex - 1 >= 0){
             player.getCardsOnField().get(cardIndex - 1).addEffect(new ChangeAttackEffect(attackValue));
             player.getCardsOnField().get(cardIndex - 1).addEffect(new ChangeHealthEffect(healthValue));

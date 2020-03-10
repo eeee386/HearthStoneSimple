@@ -11,6 +11,11 @@ public abstract class Hero {
     private int lifePoints = 30;
     private ArrayList<HeroEffect> effects = new ArrayList<>();
     private boolean canUseAbility = true;
+    private final int abilityManaCost = 2;
+
+    public int getAbilityManaCost() {
+        return abilityManaCost;
+    }
 
     public boolean isDead() {
         return lifePoints <= 0;
@@ -34,6 +39,7 @@ public abstract class Hero {
         } else {
             System.out.println("You have used up your ability");
         }
+        gm.getActivePlayer().useMana(abilityManaCost);
     }
 
     public abstract void abilityHandler(GameHandler gm);
@@ -51,6 +57,6 @@ public abstract class Hero {
         for (Effect effect: effects) {
             effectsDescription.append(effect.getDescription());
         }
-        return getClass().getName() + " life: " + lifePoints + effectsDescription;
+        return getClass().getSimpleName() + " life: " + lifePoints + effectsDescription;
     }
 }

@@ -2,6 +2,7 @@ package com.hearthstonesimple;
 
 import com.game.ActionType;
 import com.game.GameHandler;
+import com.game.ScannerUtils;
 import com.player.Player;
 
 import java.util.Scanner;
@@ -15,11 +16,11 @@ public class Main {
         gm.startNewGame();
         while(!gm.shouldEndGame()) {
             Player activePlayer = gm.getActivePlayer();
+            boolean shouldBeNewTurn = true;
             while(activePlayer.canPlay()){
-                Scanner scanner = new Scanner(System.in);
                 gm.writeOutTable();
-                System.out.println("Choose action: (attack or playcard or heroaction)");
-                String action = scanner.nextLine();
+                System.out.println("Choose action: (attack, playcard, heroaction or endturn)");
+                String action = ScannerUtils.readline();
                 ActionType actionType;
                 try{
                     actionType = valueOf(action.trim().toUpperCase());
@@ -42,19 +43,29 @@ public class Main {
                             continue;
                         }
                         System.out.println("Please choose the card you want to play (index)");
-                        int playCardIndex = scanner.nextInt();
+                        int playCardIndex = ScannerUtils.readInt();
                         activePlayer.playCard(gm, playCardIndex);
                         break;
                     case HEROACTION:
                         activePlayer.getHero().useAbility(gm);
+                    case ENDTURN:
+                        shouldBeNewTurn = false;
+                        System.out.println("\nnew turn\n");
+                        gm.newTurn();
+                        break;
                     default:
                         System.out.println("Please choose from the 3 options");
                         break;
                 }
+                gm.filterDeadSoldiers();
             }
-            System.out.println("\nnew turn\n");
-            gm.newTurn();
+            if(shouldBeNewTurn){
+                System.out.println("\nnew turn\n");
+                gm.newTurn();
+            }
+
         }
+        ScannerUtils.closeScanner();
         gm.writeOutWinner();
     }
 }

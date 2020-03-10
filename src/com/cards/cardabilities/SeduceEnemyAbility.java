@@ -2,8 +2,7 @@ package com.cards.cardabilities;
 
 import com.cards.SoldierCard;
 import com.game.GameHandler;
-
-import java.util.Scanner;
+import com.game.ScannerUtils;
 
 public class SeduceEnemyAbility extends CardAbility {
     @Override
@@ -12,12 +11,10 @@ public class SeduceEnemyAbility extends CardAbility {
             System.out.println("Your field is full.");
             return;
         }
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Which soldier do you want to take from the enemy? (Placement)");
-        int cardIndex = scanner.nextInt();
+        int cardIndex = ScannerUtils.readInt();
         SoldierCard card = gm.getEnemyPlayer().getCardsOnField().remove(cardIndex);
         gm.getActivePlayer().getCardsOnField().add(card);
-        scanner.close();
     }
 
     @Override

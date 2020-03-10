@@ -6,11 +6,12 @@ import com.cards.CardFactory;
 import com.cards.SoldierCard;
 import com.effect.Effect;
 import com.game.GameHandler;
+import com.game.ScannerUtils;
+import com.game.Utils;
 import com.heroes.Hero;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Player {
@@ -80,10 +81,8 @@ public class Player {
             System.out.println("You don't have enough mana to play any card");
             return;
         }
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Choose a card from your hand (index of card)");
-        int index = scanner.nextInt();
-        scanner.close();
+        int index = Utils.getCardIndex(cardsInHand.size());
         playCard(gm, index);
     }
 
@@ -95,8 +94,12 @@ public class Player {
         return cardsOnField.stream().anyMatch(SoldierCard::isActive);
     }
 
+    public boolean canUseHeroAbility() {
+        return actualMana >= hero.getAbilityManaCost();
+    }
+
     public boolean canPlay() {
-        return canPlayCard() || canAttack();
+        return canPlayCard() || canAttack() || canUseHeroAbility();
     }
 
     public void playCard(GameHandler gm, int index){
@@ -113,14 +116,7 @@ public class Player {
             if(cardInUse instanceof BattleCrySoldierCard) {
                 cardInUse.useAbility(gm);
             }
-            Scanner scanner = new Scanner(System.in);
-            int indexOnField = 0;
-            if(cardsOnField.size() > 0) {
-                do {
-                    System.out.println("Where to: ");
-                    indexOnField = scanner.nextInt();
-                } while(indexOnField > cardsOnField.size());
-            }
+            int indexOnField = getCardInHandIndex();
             cardsOnField.add(indexOnField, (SoldierCard) cardInUse);
             cardsInHand.remove(cardInUse);
             playedCards.add((SoldierCard) cardInUse);
@@ -144,7 +140,6 @@ public class Player {
         incrementMaxMana();
         setOnTurn(true);
         decrementEffectTurn();
-        filterDeadSoldiers();
         drawCard();
         hero.setCanUseAbility(true);
     }
@@ -153,11 +148,10 @@ public class Player {
         setOnTurn(false);
         playedCards.clear();
         decrementEffectTurn();
-        filterDeadSoldiers();
     }
 
     public void filterDeadSoldiers(){
-        cardsOnField = (ArrayList<SoldierCard>) cardsOnField.stream().filter(SoldierCard::isDead).collect(Collectors.toList());
+        cardsOnField = (ArrayList<SoldierCard>) cardsOnField.stream().filter(SoldierCard::isAlive).collect(Collectors.toList());
     }
 
     public void decrementEffectTurn() {
@@ -186,11 +180,13 @@ public class Player {
     }
 
     public void startGameAsFirstPlayer() {
-        this.cardsInHand = new ArrayList<>(this.cardsInDeck.subList(0, 3));
+        this.cardsInHand = new ArrayList<>(this.cardsInDeck.subList(0, 2));
+        cardsInDeck.subList(0, 2).clear();
     }
 
     public void startGameAsSecondPlayer() {
-        this.cardsInHand = new ArrayList<>(this.cardsInDeck.subList(0, 4));
+        this.cardsInHand = new ArrayList<>(this.cardsInDeck.subList(0, 3));
+        cardsInDeck.subList(0, 3).clear();
     }
 
     public ArrayList<SoldierCard> getPlayedCards() {
@@ -205,8 +201,10 @@ public class Player {
     public void writeOutCardsOnField(){
         System.out.println("Cards on field");
         StringBuilder cardDescription = new StringBuilder();
+        int index = 0;
         for (Card card: cardsOnField) {
-            cardDescription.append(card.toString());
+            cardDescription.append(index).append(". ").append(card.toString());
+            index++;
         }
         System.out.println(cardDescription);
     }
@@ -214,8 +212,10 @@ public class Player {
     public void writeOutCardsInHand() {
         System.out.println("Cards in hand");
         StringBuilder cardDescription = new StringBuilder();
+        int index = 0;
         for (Card card: cardsInHand) {
-            cardDescription.append(card.toString());
+            cardDescription.append(index).append(". ").append(card.toString());
+            index++;
         }
         System.out.println(cardDescription);
     }
@@ -238,5 +238,16 @@ public class Player {
 
     public void setActualMana(int actualMana) {
         this.actualMana = actualMana;
+    }
+
+    private int getCardInHandIndex() {
+        int indexOnField = 0;
+        if(cardsOnField.size() > 0) {
+            do {
+                System.out.println("Where to (between 0 and " + cardsOnField.size() + "): ");
+                indexOnField = ScannerUtils.readInt();
+            } while(indexOnField > cardsOnField.size());
+        }
+        return indexOnField;
     }
 }
