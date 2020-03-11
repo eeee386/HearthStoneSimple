@@ -15,9 +15,10 @@ public class Main {
         GameHandler gm = new GameHandler();
         gm.startNewGame();
         while(!gm.shouldEndGame()) {
-            Player activePlayer = gm.getActivePlayer();
+            //TODO: check why this mix up the players.
+            //Player activePlayer = gm.getActivePlayer();
             boolean shouldBeNewTurn = true;
-            while(activePlayer.canPlay()){
+            while(gm.getActivePlayer().canPlay()){
                 gm.writeOutTable();
                 System.out.println("Choose action: (attack, playcard, heroaction or endturn)");
                 String action = ScannerUtils.readline();
@@ -31,23 +32,24 @@ public class Main {
 
                 switch(actionType){
                     case ATTACK:
-                        if(!activePlayer.isAnyCardOnField()){
+                        if(!gm.getActivePlayer().isAnyCardOnField()){
                             System.out.println("You don't have a soldier to attack with");
                             continue;
                         }
                         gm.handleAttack();
                         break;
                     case PLAYCARD:
-                        if(!activePlayer.isAnyCardInHand()){
+                        if(!gm.getActivePlayer().isAnyCardInHand()){
                             System.out.println("You don't have a card in your hand");
                             continue;
                         }
                         System.out.println("Please choose the card you want to play (index)");
                         int playCardIndex = ScannerUtils.readInt();
-                        activePlayer.playCard(gm, playCardIndex);
+                        System.out.println("activePlayer: "+ gm.getActivePlayer().getName());
+                        gm.getActivePlayer().playCard(gm, playCardIndex);
                         break;
                     case HEROACTION:
-                        activePlayer.getHero().useAbility(gm);
+                        gm.getActivePlayer().getHero().useAbility(gm);
                     case ENDTURN:
                         shouldBeNewTurn = false;
                         System.out.println("\nnew turn\n");

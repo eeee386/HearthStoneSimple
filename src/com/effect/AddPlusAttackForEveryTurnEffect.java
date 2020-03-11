@@ -1,15 +1,15 @@
 package com.effect;
 
-public class AddPlusAttackForEveryTurnEffect extends SoldierEffect {
+public class AddPlusAttackForEveryTurnEffect extends TurnBasedEffect {
     private final int attackValue;
 
     public AddPlusAttackForEveryTurnEffect(int attackValue) {
-        super(true, 0, true, false);
+        super(true, false);
         this.attackValue = attackValue;
     }
 
     public int getAttackValue() {
-        return attackValue;
+        return getTurnCounter()/2 * attackValue;
     }
 
     public String getDescription() {

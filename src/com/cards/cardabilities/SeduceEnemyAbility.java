@@ -3,6 +3,7 @@ package com.cards.cardabilities;
 import com.cards.SoldierCard;
 import com.game.GameHandler;
 import com.game.ScannerUtils;
+import com.game.Utils;
 
 public class SeduceEnemyAbility extends CardAbility {
     @Override
@@ -12,7 +13,7 @@ public class SeduceEnemyAbility extends CardAbility {
             return;
         }
         System.out.println("Which soldier do you want to take from the enemy? (Placement)");
-        int cardIndex = ScannerUtils.readInt();
+        int cardIndex = Utils.getCardIndex(gm.getEnemyPlayer().getCardsOnField().size());
         SoldierCard card = gm.getEnemyPlayer().getCardsOnField().remove(cardIndex);
         gm.getActivePlayer().getCardsOnField().add(card);
     }

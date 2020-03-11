@@ -65,7 +65,7 @@ public class CardFactory {
         cards.add(new BattleCrySoldierCard(6, "Horror", killEveryOneAbove3Damage, 3, 4));
 
         cards.add(new SimpleSoldierCard(8, "Ghoul",7, 7, new ArrayList<>(Arrays.asList(new AddPlusHealthForEveryTurnEffect(1), new AddPlusAttackForEveryTurnEffect(1)))));
-        cards.add(new SimpleSoldierCard(2, "Swordsmith", 1, 3, new ArrayList<>(Collections.singletonList(new AddPlusHealthForEveryTurnEffect(1)))));
+        cards.add(new SimpleSoldierCard(2, "Swordsmith", 1, 3, new ArrayList<>(Collections.singletonList(new AddPlusAttackForEveryTurnEffect(1)))));
 
         cards.add(new SimpleSoldierCard(0, "Wisp", 1, 1));
         cards.add(new SimpleSoldierCard(1, "Raider", 2, 1));

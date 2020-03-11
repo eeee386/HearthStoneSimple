@@ -20,7 +20,7 @@ public abstract class Effect {
         return isIndefinite;
     }
 
-    public void effectActivityDecrement(){
+    public void handleTurn(){
         if(isActive() && !isIndefinite() && isActivated) {
             howManyTurnsIsItStillActive--;
         }

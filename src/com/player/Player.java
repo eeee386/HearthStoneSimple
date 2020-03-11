@@ -95,7 +95,7 @@ public class Player {
     }
 
     public boolean canUseHeroAbility() {
-        return actualMana >= hero.getAbilityManaCost();
+        return actualMana >= hero.getAbilityManaCost() && hero.isCanUseAbility();
     }
 
     public boolean canPlay() {
@@ -103,9 +103,11 @@ public class Player {
     }
 
     public void playCard(GameHandler gm, int index){
+        if(cardsInHand.size() <= index){
+            System.out.println("This is not a valid index");
+        }
         Card cardInUse = cardsInHand.get(index);
-        System.out.println("actualMana: " + actualMana);
-        System.out.println("manaCost: " + actualMana);
+        System.out.println(cardInUse.getName());
         if(cardInUse.getManaCost() > actualMana){
             System.out.println("You don't have enough mana to play this card");
             return;
@@ -134,7 +136,11 @@ public class Player {
     }
 
     public void useHeroAbility(GameHandler gm){
-        hero.useAbility(gm);
+        if(hero.getAbilityManaCost() <= actualMana) {
+            hero.useAbility(gm);
+        } else {
+            System.out.println("You don't have enough mana!");
+        }
     }
 
     public void startTurn(){
@@ -158,9 +164,9 @@ public class Player {
     public void decrementEffectTurn() {
         cardsOnField.forEach(card -> {
             card.setActive(true);
-            card.getEffects().forEach(Effect::effectActivityDecrement);
+            card.getEffects().forEach(Effect::handleTurn);
         });
-        hero.getEffects().forEach(Effect::effectActivityDecrement);
+        hero.getEffects().forEach(Effect::handleTurn);
     }
 
     private void incrementMaxMana() {

@@ -30,9 +30,13 @@ public abstract class Hero {
 
     public void heal(int healValue){
         lifePoints = lifePoints + healValue;
+        if(lifePoints > 30){
+            lifePoints = 30;
+        }
     }
 
     public void useAbility(GameHandler gm){
+        System.out.println("canUseAbility: " + canUseAbility);
         if(canUseAbility) {
             abilityHandler(gm);
             canUseAbility = false;
@@ -50,6 +54,7 @@ public abstract class Hero {
 
     public void setCanUseAbility(boolean canUseAbility) {
         this.canUseAbility = canUseAbility;
+        System.out.println("canUseAbility: "+ canUseAbility);
     }
 
     public String getDescription(){
@@ -58,5 +63,9 @@ public abstract class Hero {
             effectsDescription.append(effect.getDescription());
         }
         return getClass().getSimpleName() + " life: " + lifePoints + effectsDescription;
+    }
+
+    public boolean isCanUseAbility() {
+        return canUseAbility;
     }
 }

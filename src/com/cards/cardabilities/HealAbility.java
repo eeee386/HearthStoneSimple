@@ -14,6 +14,7 @@ public class HealAbility extends CardAbility {
         this.healValue = healValue;
     }
 
+    //TODO: this needs fixing
     @Override
     public void useAbility(GameHandler gm) {
         System.out.println("Which hero or soldier do you want to heal? (Player or Player and placement on the board)");

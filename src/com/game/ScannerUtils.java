@@ -17,6 +17,7 @@ public class ScannerUtils {
                 scanner.nextLine();
             }catch (InputMismatchException e){
                 System.out.println("This is not a number input");
+                scanner.nextLine();
             }
         }
         return num;

@@ -4,6 +4,7 @@ import com.effect.ChangeAttackEffect;
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
 import com.game.ScannerUtils;
+import com.game.Utils;
 import com.player.Player;
 
 import java.util.ArrayList;
@@ -20,12 +21,22 @@ public class ChangeAttackAndHealthForAdjacentAbility extends CardAbility {
 
     @Override
     public void useAbility(GameHandler gm) {
-        System.out.println("Which soldier do you choose? (Player and placement on the board)");
-
-        String answer = ScannerUtils.readline();
-        ArrayList<String> answerArray = new ArrayList<String>(Arrays.asList(answer.split(" ")));
-        Player player = answerArray.get(0).compareTo("Player1") == 0 ? gm.getPlayerOne() : gm.getPlayerTwo();
-        int cardIndex = Integer.parseInt(answerArray.get(1));
+        System.out.println("Please choose player");
+        Player player = null;
+        String answer;
+        while(player == null){
+            System.out.println("Which Player (playerName)?");
+            answer = ScannerUtils.readline();
+            if("Player1".equals(answer)){
+                player = gm.getPlayerOne();
+            } else if("Player2".equals(answer)) {
+                player = gm.getPlayerTwo();
+            } else {
+                System.out.println("Please choose a player");
+            }
+        }
+        System.out.println("Please add index: ");
+        int cardIndex = Utils.getCardIndex(player.getCardsOnField().size());
         if(cardIndex - 1 >= 0){
             player.getCardsOnField().get(cardIndex - 1).addEffect(new ChangeAttackEffect(attackValue));
             player.getCardsOnField().get(cardIndex - 1).addEffect(new ChangeHealthEffect(healthValue));

@@ -60,17 +60,29 @@ public abstract class SoldierCard extends Card {
     public int getHealthEffectChange() {
         return effects
                 .stream()
-                .filter(e -> e instanceof ChangeHealthEffect)
-                .map(e -> ((ChangeHealthEffect) e).getChangeHealth())
+                .filter(e -> e instanceof ChangeHealthEffect || e instanceof AddPlusHealthForEveryTurnEffect)
+                .map(e -> {
+                    if (e instanceof ChangeHealthEffect) {
+                        return ((ChangeHealthEffect) e).getChangeHealth();
+                    } else {
+                        return ((AddPlusHealthForEveryTurnEffect) e).getHealthValue();
+                    }
+                })
                 .reduce(0, (acc, health) -> acc + health);
     }
 
     public int getActualAttack() {
         return attack + effects
                 .stream()
-                .filter(e -> e instanceof ChangeAttackEffect)
-                .map(e-> ((ChangeAttackEffect) e).getChangeAttack())
-                .reduce(0, (acc, health) -> acc + health);
+                .filter(e -> e instanceof ChangeAttackEffect || e instanceof AddPlusAttackForEveryTurnEffect)
+                .map(e-> {
+                    if (e instanceof ChangeAttackEffect) {
+                        return ((ChangeAttackEffect) e).getChangeAttack();
+                    } else {
+                        return ((AddPlusAttackForEveryTurnEffect) e).getAttackValue();
+                    }
+                })
+                .reduce(0, (acc, attack) -> acc + attack);
     }
 
     public int getAttack() {
@@ -137,6 +149,6 @@ public abstract class SoldierCard extends Card {
                 effects) {
             allEffects.append(effect.getDescription());
         }
-        return getName() + ", attack: " + getAttack() + ", health: " + getHealth() + ", mana: " + getManaCost() + " " + getType().toString().toLowerCase() + " " + getActiveDescription() + " " + getFullDescription() + " " + allEffects + "\n";
+        return getName() + ", attack: " + getActualAttack() + ", health: " + getActualHealth() + ", mana: " + getManaCost() + " " + getType().toString().toLowerCase() + " " + getActiveDescription() + " " + getFullDescription() + " " + allEffects + "\n";
     }
 }

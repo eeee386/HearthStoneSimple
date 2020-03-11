@@ -22,14 +22,9 @@ public class SendBackSoldierAbility extends CardAbility {
     }
 
     private void sendBackCardFromFieldToHand(GameHandler gm) {
-        System.out.println("Which character's do you want to send back? (Player and placement on the board)");
-
-        String answer = ScannerUtils.readline();
-        ArrayList<String> answerArray = new ArrayList<String>(Arrays.asList(answer.split(" ")));
-        Player player = answerArray.get(0).compareTo("Player1") == 0 ? gm.getPlayerOne() : gm.getPlayerTwo();
-        int cardIndex = Integer.parseInt(answerArray.get(1));
-        SoldierCard card = player.getCardsOnField().remove(cardIndex);
+        CardAbility.PlayerAndIndex pi = getCardPlayerAndIndexFromTheField(gm, "Choose player");
+        SoldierCard card = pi.player.getCardsOnField().remove(pi.index);
         card.getEffects().stream().filter(Effect::isStartingEffect).forEach(e-> e.setActivated(false));
-        player.getCardsInHand().add(card);
+        pi.player.getCardsInHand().add(card);
     }
 }
