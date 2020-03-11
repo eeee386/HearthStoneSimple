@@ -104,6 +104,8 @@ public class Player {
 
     public void playCard(GameHandler gm, int index){
         Card cardInUse = cardsInHand.get(index);
+        System.out.println("actualMana: " + actualMana);
+        System.out.println("manaCost: " + actualMana);
         if(cardInUse.getManaCost() > actualMana){
             System.out.println("You don't have enough mana to play this card");
             return;

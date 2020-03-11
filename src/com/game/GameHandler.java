@@ -124,9 +124,9 @@ public class GameHandler {
     }
 
     private void attackWithTaunt(SoldierCard card) {
-        System.out.println("Please choose a taunt card (index): ");
         SoldierCard enemyCard = null;
         while(!(enemyCard instanceof TauntSoldierCard)){
+            System.out.println("Please choose a taunt card (index): ");
             int enemyCardIndex = Utils.getCardIndex(enemyPlayer.getCardsOnField().size());
             enemyCard = enemyPlayer.getCardsOnField().get(enemyCardIndex);
             card.attack(enemyCard);

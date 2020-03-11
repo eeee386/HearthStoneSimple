@@ -114,8 +114,13 @@ public abstract class SoldierCard extends Card {
     }
 
     public void attack(Hero hero){
-        hero.hit(attack);
-        setActive(false);
+        if(isActive){
+            hero.hit(attack);
+            setActive(false);
+        } else {
+            System.out.println("This soldier is already spent!");
+        }
+
     }
 
     public boolean isAlive() {
