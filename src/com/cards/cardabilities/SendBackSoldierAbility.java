@@ -3,11 +3,7 @@ package com.cards.cardabilities;
 import com.cards.SoldierCard;
 import com.effect.Effect;
 import com.game.GameHandler;
-import com.game.ScannerUtils;
-import com.player.Player;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.game.Utils;
 
 public class SendBackSoldierAbility extends CardAbility {
 
@@ -22,9 +18,9 @@ public class SendBackSoldierAbility extends CardAbility {
     }
 
     private void sendBackCardFromFieldToHand(GameHandler gm) {
-        CardAbility.PlayerAndIndex pi = getCardPlayerAndIndexFromTheField(gm, "Choose player");
-        SoldierCard card = pi.player.getCardsOnField().remove(pi.index);
+        Utils.PlayerAndIndexOrHero pi = Utils.getCardPlayerAndIndexOrHeroFromTheField(gm, "Choose player");
+        SoldierCard card = pi.getPlayer().getCardsOnField().remove(pi.getIndex());
         card.getEffects().stream().filter(Effect::isStartingEffect).forEach(e-> e.setActivated(false));
-        pi.player.getCardsInHand().add(card);
+        pi.getPlayer().getCardsInHand().add(card);
     }
 }

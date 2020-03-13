@@ -3,11 +3,8 @@ package com.hearthstonesimple;
 import com.game.ActionType;
 import com.game.GameHandler;
 import com.game.ScannerUtils;
-import com.player.Player;
 
-import java.util.Scanner;
-
-import static com.game.ActionType.*;
+import static com.game.ActionType.valueOf;
 
 public class Main {
 

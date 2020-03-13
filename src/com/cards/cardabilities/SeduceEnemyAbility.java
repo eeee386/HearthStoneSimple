@@ -2,7 +2,6 @@ package com.cards.cardabilities;
 
 import com.cards.SoldierCard;
 import com.game.GameHandler;
-import com.game.ScannerUtils;
 import com.game.Utils;
 
 public class SeduceEnemyAbility extends CardAbility {

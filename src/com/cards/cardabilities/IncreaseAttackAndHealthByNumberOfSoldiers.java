@@ -4,12 +4,13 @@ import com.cards.SoldierCard;
 import com.effect.ChangeAttackEffect;
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
+import com.game.Utils;
 
 public class IncreaseAttackAndHealthByNumberOfSoldiers extends CardAbility {
     @Override
     public void useAbility(GameHandler gm) {
         int numberOfSoldiers = gm.getActivePlayer().getCardsOnField().size();
-        SoldierCard card = getCardFromTheField(gm, "Which character's attack do you want to increase?");
+        SoldierCard card = Utils.getCardFromTheField(gm, "Which character's attack do you want to increase?");
         card.addEffect(new ChangeAttackEffect(numberOfSoldiers));
         card.addEffect(new ChangeHealthEffect(numberOfSoldiers));
     }

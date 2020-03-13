@@ -7,9 +7,6 @@ import com.game.ScannerUtils;
 import com.game.Utils;
 import com.player.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class ChangeAttackAndHealthForAdjacentAbility extends CardAbility {
     private int attackValue;
     private int healthValue;

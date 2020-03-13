@@ -2,6 +2,7 @@ package com.cards.cardabilities;
 
 import com.effect.ChangeAttackEffect;
 import com.game.GameHandler;
+import com.game.Utils;
 
 public class ChangeAttackAbility extends CardAbility {
     private int attackValue;
@@ -12,7 +13,7 @@ public class ChangeAttackAbility extends CardAbility {
 
     @Override
     public void useAbility(GameHandler gm) {
-        getCardFromTheField(gm, "Which character's attack do you want to increase?").addEffect(new ChangeAttackEffect(attackValue));
+        Utils.getCardFromTheField(gm, "Which character's attack do you want to increase?").addEffect(new ChangeAttackEffect(attackValue));
     }
 
     @Override
