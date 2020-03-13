@@ -46,6 +46,6 @@ public class ChangeAttackAndHealthForAdjacentAbility extends CardAbility {
 
     @Override
     public String getDiscription() {
-        return "Changes a soldier's attack by " + (attackValue > 0 ? "+" : "") + attackValue + " and health by " + (healthValue > 0 ? "+": "") + healthValue;
+        return "Changes a soldier's adjacent soldier's attack by " + (attackValue > 0 ? "+" : "") + attackValue + " and health by " + (healthValue > 0 ? "+": "") + healthValue;
     }
 }

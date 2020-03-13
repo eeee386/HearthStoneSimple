@@ -43,7 +43,7 @@ public class Utils {
 
 
     public static PlayerAndIndexOrHero getCardPlayerAndIndexFromTheField(GameHandler gm, String message) {
-        System.out.println(message + "Player");
+        System.out.println(message);
         Player player = null;
         String answer;
         while(player == null){
@@ -57,6 +57,7 @@ public class Utils {
                 System.out.println("Please choose a player");
             }
         }
+        System.out.println("Please add index: ");
         return new PlayerAndIndexOrHero(player, Utils.getCardIndex(player.getCardsOnField().size()), false);
     }
 
@@ -82,6 +83,7 @@ public class Utils {
             if("hero".equals(answer)){
                 pi = new PlayerAndIndexOrHero(player, -1, true);
             } else if("soldier".equals(answer)) {
+                System.out.println("Please add index: ");
                 int index = Utils.getCardIndex(player.getCardsOnField().size());
                 pi = new PlayerAndIndexOrHero(player, index, false);
             }

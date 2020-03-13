@@ -18,9 +18,9 @@ public class SendBackSoldierAbility extends CardAbility {
     }
 
     private void sendBackCardFromFieldToHand(GameHandler gm) {
-        Utils.PlayerAndIndexOrHero pi = Utils.getCardPlayerAndIndexOrHeroFromTheField(gm, "Choose player");
+        Utils.PlayerAndIndexOrHero pi = Utils.getCardPlayerAndIndexFromTheField(gm, "Which soldier to send back?");
         SoldierCard card = pi.getPlayer().getCardsOnField().remove(pi.getIndex());
-        card.getEffects().stream().filter(Effect::isStartingEffect).forEach(e-> e.setActivated(false));
+        card.setToStartPosition();
         pi.getPlayer().getCardsInHand().add(card);
     }
 }

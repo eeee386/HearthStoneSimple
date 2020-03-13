@@ -4,6 +4,7 @@ import com.cards.SoldierCard;
 import com.effect.ChangeAttackEffect;
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
+import com.game.Utils;
 
 public class ChangeHealthAndAttackAbility extends CardAbility {
     private int attackValue;
@@ -16,7 +17,7 @@ public class ChangeHealthAndAttackAbility extends CardAbility {
 
     @Override
     public void useAbility(GameHandler gm) {
-        SoldierCard card = getCardFromTheField(gm,"Which character's attack and health do you want to increase?");
+        SoldierCard card = Utils.getCardFromTheField(gm,"Which character's attack and health do you want to increase?");
         card.addEffect(new ChangeAttackEffect(attackValue));
         card.addEffect(new ChangeHealthEffect(healthValue));
     }

@@ -16,6 +16,6 @@ public class DrawCardAbility extends CardAbility {
 
     @Override
     public String getDiscription() {
-        return null;
+        return "Draw " + numberOfCards + " cards";
     }
 }

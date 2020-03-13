@@ -1,9 +1,8 @@
 package com.player;
 
-import com.cards.BattleCrySoldierCard;
-import com.cards.Card;
-import com.cards.CardFactory;
-import com.cards.SoldierCard;
+import com.cards.*;
+import com.cards.cardabilities.CardAbility;
+import com.cards.cardabilities.ManaFillAbility;
 import com.effect.Effect;
 import com.game.GameHandler;
 import com.game.ScannerUtils;
@@ -122,7 +121,6 @@ public class Player {
             }
             int indexOnField = getCardInHandIndex();
             cardsOnField.add(indexOnField, (SoldierCard) cardInUse);
-            cardsInHand.remove(cardInUse);
             playedCards.add((SoldierCard) cardInUse);
             ((SoldierCard) cardInUse).getEffects().forEach(e-> {
                 if(e.isStartingEffect()){
@@ -132,6 +130,7 @@ public class Player {
         } else {
             cardInUse.useAbility(gm);
         }
+        cardsInHand.remove(cardInUse);
         useMana(cardInUse.getManaCost());
     }
 
@@ -194,6 +193,9 @@ public class Player {
     public void startGameAsSecondPlayer() {
         this.cardsInHand = new ArrayList<>(this.cardsInDeck.subList(0, 3));
         cardsInDeck.subList(0, 3).clear();
+        ArrayList<CardAbility> manafillAbility = new ArrayList<>();
+        manafillAbility.add(new ManaFillAbility(1));
+        this.cardsInHand.add(new SpellCard(0, "Coin", manafillAbility));
     }
 
     public ArrayList<SoldierCard> getPlayedCards() {

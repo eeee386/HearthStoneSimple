@@ -11,8 +11,13 @@ public class KillEveryOneOnFieldByAttackValue extends KillEveryOneOnFieldAbility
 
     @Override
     public void predicate(SoldierCard e) {
-        if(e.getActualAttack() > attackValue){
+        if(e.getActualAttack() >= attackValue){
             super.predicate(e);
         }
+    }
+
+    @Override
+    public String getDiscription() {
+        return super.getDiscription() + ", which has " + attackValue + " or more attack";
     }
 }

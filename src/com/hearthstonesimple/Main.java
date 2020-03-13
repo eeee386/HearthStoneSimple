@@ -12,6 +12,7 @@ public class Main {
         GameHandler gm = new GameHandler();
         gm.startNewGame();
         while(!gm.shouldEndGame()) {
+            System.out.println(gm.shouldEndGame());
             //TODO: check why this mix up the players.
             //Player activePlayer = gm.getActivePlayer();
             boolean shouldBeNewTurn = true;

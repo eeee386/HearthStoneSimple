@@ -16,6 +16,6 @@ public class ManaFillAbility extends CardAbility {
 
     @Override
     public String getDiscription() {
-        return null;
+        return "Adds " + manaFillValue + " mana for this turn";
     }
 }

@@ -121,13 +121,13 @@ public abstract class SoldierCard extends Card {
             System.out.println("This soldier is already spent!");
         }
         card.hit(getActualAttack());
-        this.hit(card.attack);
+        this.hit(card.getActualAttack());
         setActive(false);
     }
 
     public void attack(Hero hero){
         if(isActive){
-            hero.hit(attack);
+            hero.hit(getActualAttack());
             setActive(false);
         } else {
             System.out.println("This soldier is already spent!");
@@ -147,8 +147,16 @@ public abstract class SoldierCard extends Card {
         StringBuilder allEffects = new StringBuilder();
         for (Effect effect :
                 effects) {
-            allEffects.append(effect.getDescription());
+            allEffects.append(effect.getDescription()).append(", ");
         }
         return getName() + ", attack: " + getActualAttack() + ", health: " + getActualHealth() + ", mana: " + getManaCost() + " " + getType().toString().toLowerCase() + " " + getActiveDescription() + " " + getFullDescription() + " " + allEffects + "\n";
+    }
+
+    public void setToStartPosition(){
+        effects.stream().filter(Effect::isStartingEffect).forEach(e-> e.setActivated(false));
+        if(!(this instanceof ChargeSoldierCard)){
+            isActive = false;
+        }
+        health = maxHealth;
     }
 }

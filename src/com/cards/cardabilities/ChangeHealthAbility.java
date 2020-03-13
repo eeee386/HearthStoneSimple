@@ -2,6 +2,7 @@ package com.cards.cardabilities;
 
 import com.effect.ChangeHealthEffect;
 import com.game.GameHandler;
+import com.game.Utils;
 
 public class ChangeHealthAbility extends CardAbility {
     private int healthValue;
@@ -12,7 +13,7 @@ public class ChangeHealthAbility extends CardAbility {
 
     @Override
     public void useAbility(GameHandler gm) {
-        getCardFromTheField(gm, "Which character's health do you want to increase?").addEffect(new ChangeHealthEffect(healthValue));
+        Utils.getCardFromTheField(gm, "Which character's health do you want to increase?").addEffect(new ChangeHealthEffect(healthValue));
     }
 
     @Override
