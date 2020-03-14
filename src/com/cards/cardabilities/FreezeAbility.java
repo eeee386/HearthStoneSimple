@@ -20,6 +20,6 @@ public class FreezeAbility extends CardAbility {
 
     @Override
     public String getDiscription() {
-        return null;
+        return "Freeze an enemy for " + freezedTurn + " turn(s)";
     }
 }

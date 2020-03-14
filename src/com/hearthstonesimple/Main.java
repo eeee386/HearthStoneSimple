@@ -3,6 +3,7 @@ package com.hearthstonesimple;
 import com.game.ActionType;
 import com.game.GameHandler;
 import com.game.ScannerUtils;
+import com.game.Utils;
 
 import static com.game.ActionType.valueOf;
 
@@ -41,10 +42,13 @@ public class Main {
                             System.out.println("You don't have a card in your hand");
                             continue;
                         }
+                        if(!gm.getActivePlayer().canPlayCard()){
+                            System.out.println("You don't have enough mana to play any card");
+                            continue;
+                        }
                         System.out.println("Please choose the card you want to play (index)");
-                        int playCardIndex = ScannerUtils.readInt();
-                        System.out.println("activePlayer: "+ gm.getActivePlayer().getName());
-                        gm.getActivePlayer().playCard(gm, playCardIndex);
+                        int index = Utils.getCardIndex(gm.getActivePlayer().getCardsInHand().size());
+                        gm.getActivePlayer().playCard(gm, index);
                         break;
                     case HEROACTION:
                         gm.getActivePlayer().getHero().useAbility(gm);

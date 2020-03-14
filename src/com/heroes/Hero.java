@@ -36,7 +36,6 @@ public abstract class Hero {
     }
 
     public void useAbility(GameHandler gm){
-        System.out.println("canUseAbility: " + canUseAbility);
         if(canUseAbility) {
             abilityHandler(gm);
             canUseAbility = false;
@@ -54,7 +53,6 @@ public abstract class Hero {
 
     public void setCanUseAbility(boolean canUseAbility) {
         this.canUseAbility = canUseAbility;
-        System.out.println("canUseAbility: "+ canUseAbility);
     }
 
     public String getDescription(){

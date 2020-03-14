@@ -2,6 +2,7 @@ package com.player;
 
 import com.cards.*;
 import com.cards.cardabilities.CardAbility;
+import com.cards.cardabilities.FreezeAbility;
 import com.cards.cardabilities.ManaFillAbility;
 import com.effect.Effect;
 import com.game.GameHandler;
@@ -10,6 +11,7 @@ import com.game.Utils;
 import com.heroes.Hero;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
@@ -73,16 +75,6 @@ public class Player {
     public void drawCard(int numberOfCards) {
         cardsInHand.addAll(cardsInDeck.subList(0, numberOfCards));
         cardsInDeck.subList(0, numberOfCards).clear();
-    }
-
-    public void playerChooseCard(GameHandler gm) {
-        if(!canPlayCard()){
-            System.out.println("You don't have enough mana to play any card");
-            return;
-        }
-        System.out.println("Choose a card from your hand (index of card)");
-        int index = Utils.getCardIndex(cardsInHand.size());
-        playCard(gm, index);
     }
 
     public boolean canPlayCard() {
@@ -164,12 +156,15 @@ public class Player {
         cardsOnField.forEach(card -> {
             card.setActive(true);
             card.getEffects().forEach(Effect::handleTurn);
+            card.setEffects(new ArrayList<>(card.getEffects().stream().filter(Effect::isActive).collect(Collectors.toList())));
         });
         hero.getEffects().forEach(Effect::handleTurn);
     }
 
     private void incrementMaxMana() {
-        maxMana++;
+        if(maxMana < 10){
+            maxMana++;
+        }
         actualMana = maxMana;
     }
 
@@ -195,7 +190,11 @@ public class Player {
         cardsInDeck.subList(0, 3).clear();
         ArrayList<CardAbility> manafillAbility = new ArrayList<>();
         manafillAbility.add(new ManaFillAbility(1));
+        //TODO: delete after testing
         this.cardsInHand.add(new SpellCard(0, "Coin", manafillAbility));
+        ArrayList<CardAbility> freeze = new ArrayList<>(Arrays.asList(new FreezeAbility(1)));
+        this.cardsInHand.add(new SpellCard(3, "Freeze", freeze));
+
     }
 
     public ArrayList<SoldierCard> getPlayedCards() {
@@ -243,10 +242,6 @@ public class Player {
 
     public int getActualMana() {
         return actualMana;
-    }
-
-    public void setActualMana(int actualMana) {
-        this.actualMana = actualMana;
     }
 
     private int getCardInHandIndex() {

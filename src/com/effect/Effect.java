@@ -10,6 +10,7 @@ public abstract class Effect {
         this.isIndefinite = isIndefinite;
         this.howManyTurnsIsItStillActive = 2 * howManyTurnsIsItStillActive;
         this.isStartingEffect = isStartingEffect;
+        this.isActivated = isActivated;
     }
 
     public boolean isActive() {

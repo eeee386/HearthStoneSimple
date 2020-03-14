@@ -1,7 +1,6 @@
 package com.cards.cardabilities;
 
 import com.cards.SoldierCard;
-import com.effect.Effect;
 import com.game.GameHandler;
 import com.game.Utils;
 

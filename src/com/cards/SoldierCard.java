@@ -112,25 +112,29 @@ public abstract class SoldierCard extends Card {
         this.effects = effects;
     }
 
-    public void attack(SoldierCard card) {
+    public boolean checkIfSoldierCardCouldAttack() {
         if(effects.stream().anyMatch(e -> e instanceof FreezeEffect)){
             System.out.println("This soldier is freezed!");
-            return;
+            return false;
         }
         if(!isActive) {
             System.out.println("This soldier is already spent!");
+            return false;
         }
-        card.hit(getActualAttack());
-        this.hit(card.getActualAttack());
-        setActive(false);
+        return true;
+    }
+
+    public void attack(SoldierCard card) {
+        if(checkIfSoldierCardCouldAttack()){
+            card.hit(getActualAttack());
+            this.hit(card.getActualAttack());
+            setActive(false);
+        }
     }
 
     public void attack(Hero hero){
-        if(isActive){
+        if(checkIfSoldierCardCouldAttack()){
             hero.hit(getActualAttack());
-            setActive(false);
-        } else {
-            System.out.println("This soldier is already spent!");
         }
 
     }
@@ -147,9 +151,9 @@ public abstract class SoldierCard extends Card {
         StringBuilder allEffects = new StringBuilder();
         for (Effect effect :
                 effects) {
-            allEffects.append(effect.getDescription()).append(", ");
+            allEffects.append(", ").append(effect.getDescription());
         }
-        return getName() + ", attack: " + getActualAttack() + ", health: " + getActualHealth() + ", mana: " + getManaCost() + " " + getType().toString().toLowerCase() + " " + getActiveDescription() + " " + getFullDescription() + " " + allEffects + "\n";
+        return getName() + ", attack: " + getActualAttack() + ", health: " + getActualHealth() + ", mana: " + getManaCost() + ", " + getType().toString().toLowerCase() + ", " + getActiveDescription() + " " + getFullDescription() + " " + allEffects + "\n";
     }
 
     public void setToStartPosition(){
