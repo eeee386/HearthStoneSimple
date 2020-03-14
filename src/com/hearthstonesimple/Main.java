@@ -13,7 +13,6 @@ public class Main {
         GameHandler gm = new GameHandler();
         gm.startNewGame();
         while(!gm.shouldEndGame()) {
-            System.out.println(gm.shouldEndGame());
             //TODO: check why this mix up the players.
             //Player activePlayer = gm.getActivePlayer();
             boolean shouldBeNewTurn = true;
@@ -52,6 +51,7 @@ public class Main {
                         break;
                     case HEROACTION:
                         gm.getActivePlayer().getHero().useAbility(gm);
+                        break;
                     case ENDTURN:
                         shouldBeNewTurn = false;
                         System.out.println("\nnew turn\n");
@@ -62,12 +62,14 @@ public class Main {
                         break;
                 }
                 gm.filterDeadSoldiers();
+                if(gm.shouldEndGame()){
+                    break;
+                }
             }
-            if(shouldBeNewTurn){
+            if(shouldBeNewTurn && !gm.shouldEndGame()){
                 System.out.println("\nnew turn\n");
                 gm.newTurn();
             }
-
         }
         ScannerUtils.closeScanner();
         gm.writeOutWinner();
