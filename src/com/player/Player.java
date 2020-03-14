@@ -190,10 +190,7 @@ public class Player {
         cardsInDeck.subList(0, 3).clear();
         ArrayList<CardAbility> manafillAbility = new ArrayList<>();
         manafillAbility.add(new ManaFillAbility(1));
-        //TODO: delete after testing
         this.cardsInHand.add(new SpellCard(0, "Coin", manafillAbility));
-        ArrayList<CardAbility> freeze = new ArrayList<>(Arrays.asList(new FreezeAbility(1)));
-        this.cardsInHand.add(new SpellCard(3, "Freeze", freeze));
 
     }
 
