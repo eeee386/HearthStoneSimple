@@ -1,5 +1,8 @@
 package com.effect;
 
+/**
+ * If this effect is on a Soldier Card and active it will Change the health value of a Soldier Card
+ */
 public class ChangeHealthEffect extends SoldierEffect {
     private final int changeHealth;
 

@@ -1,5 +1,8 @@
 package com.cards;
 
+/**
+ * Enum to categorize the soldier cards
+ */
 public enum SoldierTypes implements CardTypes {
     SIMPLE ("SIMPLE"),
     CHARGE ("CHARGE"),

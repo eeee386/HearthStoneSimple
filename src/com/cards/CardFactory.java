@@ -8,8 +8,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * A utility class for creating cards
+ */
 public class CardFactory {
     public static ArrayList<Card> cards = new ArrayList<>();
+
+    /**
+     * Creates a full deck of cards
+     */
     public static void createCards() {
         ArrayList<CardAbility> blessOfChampions = abilityListFactory(new ChangeHealthAndAttackAbility(3, 3));
 
@@ -73,11 +80,21 @@ public class CardFactory {
         cards.add(new SimpleSoldierCard(3, "Rager", 5, 1));
     }
 
+    /**
+     * Calls the create cards which will create the deck
+     * @return the created cards
+     * @see #createCards()
+     */
     public static ArrayList<Card> getFullDeck(){
         createCards();
         return cards;
     }
 
+    /**
+     * Util function for easier creation if abilites for a card
+     * @param abilities, CardAbilities the card will have
+     * @return An ArrayList of CardAbilities
+     */
     private static ArrayList<CardAbility> abilityListFactory(CardAbility ...abilities){
         return new ArrayList<>(Arrays.asList(abilities));
     }

@@ -3,6 +3,9 @@ package com.cards.cardabilities;
 import com.game.GameHandler;
 import com.player.Player;
 
+/**
+ * Damage Everyone on field by a specified attack value
+ */
 public class DamageEveryoneAbility extends CardAbility {
     private final int attackValue;
 
@@ -10,6 +13,10 @@ public class DamageEveryoneAbility extends CardAbility {
         this.attackValue = attackValue;
     }
 
+    /**
+     * Find and damage every character on field
+     * @param gm, GameHandler to get players and all of their cards
+     */
     @Override
     public void useAbility(GameHandler gm) {
         Player player1 = gm.getPlayerOne();
@@ -21,7 +28,7 @@ public class DamageEveryoneAbility extends CardAbility {
     }
 
     @Override
-    public String getDiscription() {
+    public String getDescription() {
         return "Damage everyone on field and heros by " + attackValue;
     }
 }

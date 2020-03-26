@@ -29,10 +29,12 @@ public class GameHandler {
         return enemyPlayer;
     }
 
-    public void activePlayerUseHeroAbility() {
-        this.activePlayer.useHeroAbility(this);
-    }
-
+    /**
+     * Creates a player instance with the specified hero in answer
+     * @param answer, Hero type that will decide which hero to create
+     * @param name, Player's name
+     * @return the new Player instance
+     */
     private Player playerFactory(HeroTypes answer, String name) {
         switch (answer) {
             case CLERIC:
@@ -50,6 +52,9 @@ public class GameHandler {
         }
     }
 
+    /**
+     * Prepares the game essentials, creates the players, prepares the deck, prepares the players hand
+     */
     public void startNewGame() {
         HeroTypes ans = null;
         ans = heroChooseHandler(ans, 1);
@@ -68,11 +73,17 @@ public class GameHandler {
         startFirstTurn();
     }
 
+    /**
+     * Handler for starting the first turn
+     */
     public void startFirstTurn() {
         activePlayer.startTurn();
         System.out.println(activePlayer.getName() + "'s turn started\n");
     }
 
+    /**
+     * Handler for starting a new turn
+     */
     public void newTurn() {
         activePlayer.endTurn();
         enemyPlayer.startTurn();
@@ -82,10 +93,17 @@ public class GameHandler {
         System.out.println(activePlayer.getName() + "'s turn started\n");
     }
 
+    /**
+     * Decides if the game should be ended or not.
+     * @return true or false depending if one of the player is down
+     */
     public boolean shouldEndGame() {
         return playerOne.isGameOver() || playerTwo.isGameOver();
     }
 
+    /**
+     * Util function for writing out who won
+     */
     public void writeOutWinner() {
         if (shouldEndGame()) {
             String winner = !playerOne.isGameOver() ? playerOne.getName() : playerTwo.getName();
@@ -93,6 +111,12 @@ public class GameHandler {
         }
     }
 
+    /**
+     * Handles the logic of choosing a hero for the player.
+     * @param ans, HeroTypes to save the player's answer
+     * @param oneOrTwo which of the player's hero we are choosing
+     * @return The chosen Hero Type
+     */
     private HeroTypes heroChooseHandler(HeroTypes ans, int oneOrTwo) {
         while (ans == null) {
             String answer;
@@ -111,6 +135,10 @@ public class GameHandler {
         return ans;
     }
 
+    /**
+     * Handles attack logic
+     * Gets the card the active player will attack with, and the card the active player can attack
+     */
     public void handleAttack() {
         System.out.println("Please choose the soldier you want to attack with (index): ");
         int cardIndex = Utils.getCardIndex(activePlayer.getCardsOnField().size());
@@ -123,6 +151,10 @@ public class GameHandler {
         }
     }
 
+    /**
+     * Handles the case when the enemy player has taunt cards
+     * @param card the card the active player will attack
+     */
     private void attackWithTaunt(SoldierCard card) {
         SoldierCard enemyCard = null;
         while(!(enemyCard instanceof TauntSoldierCard)){
@@ -133,6 +165,10 @@ public class GameHandler {
         }
     }
 
+    /**
+     * Handles the case when the enemy has no taunt cards
+     * @param card the card the active player will attack
+     */
     private void attackWithoutTaunt(SoldierCard card) {
         System.out.println("Please choose which type of character do you want to attack (soldier, or hero): ");
         String answer = ScannerUtils.readline();
@@ -150,6 +186,9 @@ public class GameHandler {
         }
     }
 
+    /**
+     * Util method to write out the information about the game
+     */
     public void writeOutTable() {
         activePlayer.writeOutHero();
         System.out.println("actualMana: " + activePlayer.getActualMana());
@@ -160,6 +199,9 @@ public class GameHandler {
         enemyPlayer.writeOutCardsOnField();
     }
 
+    /**
+     * Util method to filter every fallen soldier
+     */
     public void filterDeadSoldiers() {
         activePlayer.filterDeadSoldiers();
         enemyPlayer.filterDeadSoldiers();

@@ -3,6 +3,9 @@ package com.cards.cardabilities;
 import com.game.GameHandler;
 import com.game.Utils;
 
+/**
+ * You can attack a character on board, if this ability is called
+ */
 public class AttackAbility extends CardAbility {
     private int attackValue;
 
@@ -10,6 +13,10 @@ public class AttackAbility extends CardAbility {
         this.attackValue = attackValue;
     }
 
+    /**
+     * Find a character, and damage it with the specified attack value.
+     * @param gm, GameHandler to call the getCardPlayerAndIndexOrHeroFromTheField with it
+     */
     @Override
     public void useAbility(GameHandler gm) {
         Utils.PlayerAndIndexOrHero pi = Utils.getCardPlayerAndIndexOrHeroFromTheField(gm, "Which to character to attack?");
@@ -21,7 +28,7 @@ public class AttackAbility extends CardAbility {
     }
 
     @Override
-    public String getDiscription() {
+    public String getDescription() {
         return "Damage a chosen Soldier or hero by " + attackValue;
     }
 }

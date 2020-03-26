@@ -2,6 +2,9 @@ package com.cards.cardabilities;
 
 import com.cards.SoldierCard;
 
+/**
+ * Kill everyone on field which has more than the specified attack value
+ */
 public class KillEveryOneOnFieldByAttackValue extends KillEveryOneOnFieldAbility {
     private final int attackValue;
 
@@ -9,6 +12,11 @@ public class KillEveryOneOnFieldByAttackValue extends KillEveryOneOnFieldAbility
         this.attackValue = attackValue;
     }
 
+    /**
+     * Kill everyone who has more than the specified attack value
+     * specified attack value is defined in this.attackValue
+     * @param e, general argument for soldier card
+     */
     @Override
     public void predicate(SoldierCard e) {
         if(e.getActualAttack() >= attackValue){
@@ -17,7 +25,7 @@ public class KillEveryOneOnFieldByAttackValue extends KillEveryOneOnFieldAbility
     }
 
     @Override
-    public String getDiscription() {
-        return super.getDiscription() + ", which has " + attackValue + " or more attack";
+    public String getDescription() {
+        return super.getDescription() + ", which has " + attackValue + " or more attack";
     }
 }

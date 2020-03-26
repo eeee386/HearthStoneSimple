@@ -4,7 +4,14 @@ import com.cards.SoldierCard;
 import com.game.GameHandler;
 import com.game.Utils;
 
+/**
+ * Take an enemy soldier's card and add it to you field
+ */
 public class SeduceEnemyAbility extends CardAbility {
+    /**
+     * Find card to take from enemy field, and add to your field
+     * @param gm, GameHandler, to find the enemy card, and check you field size
+     */
     @Override
     public void useAbility(GameHandler gm) {
         if(gm.getActivePlayer().getCardsOnField().size() == 5){
@@ -18,7 +25,7 @@ public class SeduceEnemyAbility extends CardAbility {
     }
 
     @Override
-    public String getDiscription() {
+    public String getDescription() {
         return "Takes an enemy soldier from the field and adds it to your field";
     }
 }

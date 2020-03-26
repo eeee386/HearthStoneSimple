@@ -4,6 +4,9 @@ import com.effect.SoldierEffect;
 
 import java.util.ArrayList;
 
+/**
+ * Class describe a Simple Soldier Card
+ */
 public class SimpleSoldierCard extends SoldierCard {
     public SimpleSoldierCard(int manaCost, String name, int attack, int maxHealth) {
         super(manaCost, name, SoldierTypes.SIMPLE, new ArrayList<>(), attack, maxHealth);

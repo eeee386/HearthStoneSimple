@@ -8,7 +8,14 @@ import com.game.Utils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Clear all beneficial effects from a card
+ */
 public class ClearBonusesAbility extends CardAbility {
+    /**
+     * Find and take down all effects from card which has a benefit
+     * @param gm, GameHandler to call the getCardFromTheField with it
+     */
     @Override
     public void useAbility(GameHandler gm) {
         SoldierCard card = Utils.getCardFromTheField(gm, "Which card to take away bonuses from?");
@@ -16,7 +23,7 @@ public class ClearBonusesAbility extends CardAbility {
     }
 
     @Override
-    public String getDiscription() {
+    public String getDescription() {
         return "Clears all bonuses on a card.";
     }
 }

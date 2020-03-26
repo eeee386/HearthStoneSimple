@@ -3,7 +3,13 @@ package com.game;
 import com.cards.SoldierCard;
 import com.player.Player;
 
+/**
+ * Utility class mainly for handling card and character choosing
+ */
 public class Utils {
+    /**
+     * Inner static class for easier handling of getting characters on field
+     */
     public static class PlayerAndIndexOrHero {
         private Player player;
         private int index;
@@ -29,6 +35,11 @@ public class Utils {
     }
 
 
+    /**
+     * Handles choosing a valid card index
+     * @param cardListSize the size of the card list (in hand, on field, or otherwise)
+     * @return the card index of the chosen card
+     */
     public static int getCardIndex(int cardListSize) {
         int cardIndex = -1;
         while (cardIndex == -1) {
@@ -40,14 +51,19 @@ public class Utils {
         return cardIndex;
     }
 
-
-
+    /**
+     * Gets a player and its card index that can be chosen
+     * @param gm Gameplayer, for getting the player and its cards
+     * @param message The message to describe why we need this card
+     * @return the PlayerAndIndexOrHero class instance, filled with the active player's choices
+     * @see PlayerAndIndexOrHero
+     */
     public static PlayerAndIndexOrHero getCardPlayerAndIndexFromTheField(GameHandler gm, String message) {
         System.out.println(message);
         Player player = null;
         String answer;
         while(player == null){
-            System.out.println("Which Player (playerName)?");
+            System.out.println("Which Player (playerName (Player1 or Player2))?");
             answer = ScannerUtils.readline();
             if("Player1".equals(answer)){
                 player = gm.getPlayerOne();
@@ -61,11 +77,18 @@ public class Utils {
         return new PlayerAndIndexOrHero(player, Utils.getCardIndex(player.getCardsOnField().size()), false);
     }
 
+    /**
+     * Gets a player and its hero
+     * @param gm Gameplayer, for getting the player and its hero
+     * @param message The message to describe why we need the player's hero
+     * @return the PlayerAndIndexOrHero class instance, filled with the active player's choices
+     * @see PlayerAndIndexOrHero
+     */
     public static PlayerAndIndexOrHero getCardPlayerAndIndexOrHeroFromTheField(GameHandler gm, String message){
         String answer;
         Player player = null;
         while(player == null){
-            System.out.println("Which Player (playerName)?");
+            System.out.println("Which Player (playerName (Player1 or Player2))?");
             answer = ScannerUtils.readline();
             if("Player1".equals(answer)){
                 player = gm.getPlayerOne();
@@ -91,6 +114,12 @@ public class Utils {
         return pi;
     }
 
+    /**
+     * Gets the chosen card
+     * @param gm GameHandler to get the card
+     * @param message to describe why we need this card
+     * @return The soldier card chosen by the active player
+     */
     public static SoldierCard getCardFromTheField(GameHandler gm, String message) {
         PlayerAndIndexOrHero pi = getCardPlayerAndIndexFromTheField(gm, message);
         return pi.player.getCardsOnField().get(pi.index);

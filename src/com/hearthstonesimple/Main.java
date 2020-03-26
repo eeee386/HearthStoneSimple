@@ -50,7 +50,7 @@ public class Main {
                         gm.getActivePlayer().playCard(gm, index);
                         break;
                     case HEROACTION:
-                        gm.getActivePlayer().getHero().useAbility(gm);
+                        gm.getActivePlayer().useHeroAbility(gm);
                         break;
                     case ENDTURN:
                         shouldBeNewTurn = false;

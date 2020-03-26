@@ -1,5 +1,8 @@
 package com.effect;
 
+/**
+ * If this effect is on a Soldier Card and active it will Change the attack value of a Soldier Card
+ */
 public class ChangeAttackEffect extends SoldierEffect {
     private final int changeAttack;
     public ChangeAttackEffect(int changeAttack) {
